@@ -50,13 +50,14 @@
 
     $sql = "";
     $status = "";
+    $nomor = 0;
     $check = mysqli_query($conn,"SELECT * FROM hologramBot_hadir WHERE user_id='" .$user_id."'");
     if(getComm($message, '/hadir')){
         //sendMessage($adnan_id, 'adama', $token );
         $status = 'Hadir';
 
         if (mysqli_num_rows($check) > 0) {
-            $sql = "UPDATE hologramBot_hadir SET status = '".$status."' WHERE user_id='" .$user_id. "'";
+            $sql = "UPDATE hologramBot_hadir SET status = '".$status."', username = '".$username."' , first_name = '".$first_name."' , last_name = '".$last_name."' , waktu = '".$waktu."' WHERE user_id='" .$user_id. "'";
         }else{
             $sql = "INSERT INTO hologramBot_hadir(user_id,username,first_name,last_name,status,waktu) VALUES ('$user_id','$username','$first_name','$last_name','$status','$waktu')";
         }
@@ -71,7 +72,7 @@
     elseif(getComm($message, '/keluar')){
         $status = 'Keluar';
         if (mysqli_num_rows($check) > 0) {
-            $sql = "UPDATE hologramBot_hadir SET status = '".$status."' WHERE user_id='" .$user_id. "'";
+            $sql = "UPDATE hologramBot_hadir SET status = '".$status."', username = '".$username."' , first_name = '".$first_name."' , last_name = '".$last_name."' , waktu = '".$waktu."' WHERE user_id='" .$user_id. "'";
         }else{
             $sql = "INSERT INTO hologramBot_hadir(user_id,username,first_name,last_name,status,waktu) VALUES ('$user_id','$username','$first_name','$last_name','$status','$waktu')";
         }
@@ -84,6 +85,7 @@
 
     }
     elseif(getComm($message, '/pulang')){
+        $status = 'Pulang';
         $pesan = $first_name." ".$last_name." (@".$username.") sudah pulang.";
         if (mysqli_num_rows($check) > 0) {
             $sql = "DELETE FROM hologramBot_hadir WHERE user_id='" .$user_id. "'";
@@ -92,33 +94,48 @@
             }
         }
     }elseif(getComm($message, '/cek')){
-        $pesan = '';
+        $pesan = '';    
         $check = mysqli_query($conn,"SELECT * FROM hologramBot_hadir");
         if (mysqli_num_rows($check) > 0) {
-            $pesan = 'Anggota yang hadir saat ini :'.PHP_EOL;
+            $pesan = 'Anggota yang hadir saat ini :'.PHP_EOL .PHP_EOL;
             while($row = mysqli_fetch_assoc($check)) {
-                $satu = $row['first_name'] .' '. $row['last_name'] .' (@'. $row['username'] . ') - '. $row['status']. PHP_EOL;
+                $nomor++;
+                $satu = $nomor . '. ' .$row['first_name'] .' '. $row['last_name'] .' (@'. $row['username'] . ') - '. $row['status']. PHP_EOL;
                 $pesan = $pesan.$satu; 
             }
         }else {
             $pesan = 'Belum ada orang di Ambeso.';
+        }
+    }elseif(getComm($message, '/log')){
+        $pesan = '';
+        $check = mysqli_query($conn,"SELECT * FROM hologramBot_hadir_log order by id_log desc limit 10");
+        if (mysqli_num_rows($check) > 0) {
+            $pesan = '10 Aktifitas Terakhir :'.PHP_EOL .PHP_EOL;
+            while($row = mysqli_fetch_assoc($check)) {
+                $nomor++;
+                $satu =  $nomor . '. @' . $row['username'] . ' - '. $row['status'] . ' ('. $row['waktu'] . ')' . PHP_EOL;
+                $pesan = $pesan.$satu; 
+            }
+        }else {
+            $pesan = 'Log Kosong';
         }
     }
 
     
     
     sendMessage($chat_id, $pesan, $token);
-   
 
+    if($status !== ""){
+        $sql = "INSERT INTO hologramBot_hadir_log(user_id,username,first_name,last_name,status,waktu) VALUES ('$user_id','$username','$first_name','$last_name','$status','$waktu')";
+        if (!mysqli_query($conn,$sql)){            
+            $pesan = 'Terjadi Kesalahan penulisan log';
+            sendMessage($chat_id, $pesan, $token);
+        }
+    }
    
-
+    
+    
+    
     
 
-    // if(strpos($message, "/hadir") == 0){
-    //     sendMessage($adnan_id, "Kirim pesan hadir dari PHP", $token);
-    // }
-
-    // if(strpos($message, "/pulang") == 0){
-    //     sendMessage($adnan_id, "Kirim pesan pulang dari PHP", $token);
-    // }
 ?>
