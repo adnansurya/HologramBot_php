@@ -48,8 +48,9 @@
         if (mysqli_num_rows($check) > 0) {
             $pesan = 'Anggota yang hadir saat ini :'.PHP_EOL .PHP_EOL;
             while($row = mysqli_fetch_assoc($check)) {
-                $nomor++;                                
-                $satu = $nomor . '. '. $row['nickname'] .' (@'. $row['username'] . ') - '. $row['waktu']. PHP_EOL;
+                $nomor++;
+                $waktu_split = explode(" ", $row['waktu']);                                
+                $satu = $nomor . '. '. $row['nickname'] .' (@'. $row['username'] . ') dari jam '. $waktu_split[1]. PHP_EOL;
                 $pesan = $pesan.$satu; 
             }
         }else {
