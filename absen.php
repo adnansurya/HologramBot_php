@@ -19,35 +19,37 @@
                 $identity = $row['nickname']." (@".$row['username'].")";            
             }
 
+            $check_hadir = mysqli_query($conn,"SELECT * FROM hologramBot_hadir WHERE id_card='" .$card_id."'");
+            if (mysqli_num_rows($check_hadir) > 0) {
+                //id sudah hadir
+                $status = "keluar";
+                $sql = "DELETE FROM hologramBot_hadir WHERE id_card='" .$card_id. "'";
+                if (!mysqli_query($conn,$sql)){            
+                    $pesan = 'Terjadi Kesalahan pada database kehadiran';
+                }else{
+                    $pesan = $identity." telah meninggalkan Ambeso.";
+                }
+            }else{
+                //id belum hadir
+                $status = "hadir";
+                $sql = "INSERT INTO hologramBot_hadir(id_card,waktu) VALUES ('$card_id','$waktu')";
+                if (!mysqli_query($conn,$sql)){            
+                    $pesan = 'Terjadi Kesalahan pada database kehadiran';
+                }else{
+                    $pesan = $identity." sedang berada di Ambeso.";
+                }
+            }
+           
         }else{
             //id tidak dikenali
             
             sendMessage($chat_id,  "Id Kartu : ", $token);
             sendMessage($chat_id,  $card_id, $token);
-            $identity = "Orang tak dikenal";
+            $pesan = "Orang tak dikenal sedang berada di Ambeso.";
         }
         
 
-        $check_hadir = mysqli_query($conn,"SELECT * FROM hologramBot_hadir WHERE id_card='" .$card_id."'");
-        if (mysqli_num_rows($check_hadir) > 0) {
-            //id sudah hadir
-            $status = "keluar";
-            $sql = "DELETE FROM hologramBot_hadir WHERE id_card='" .$card_id. "'";
-            if (!mysqli_query($conn,$sql)){            
-                $pesan = 'Terjadi Kesalahan pada database kehadiran';
-            }else{
-                $pesan = $identity." telah meninggalkan Ambeso.";
-            }
-        }else{
-            //id belum hadir
-            $status = "hadir";
-            $sql = "INSERT INTO hologramBot_hadir(id_card,waktu) VALUES ('$card_id','$waktu')";
-            if (!mysqli_query($conn,$sql)){            
-                $pesan = 'Terjadi Kesalahan pada database kehadiran';
-            }else{
-                $pesan = $identity." sedang berada di Ambeso.";
-            }
-        }
+       
 
 
 
@@ -58,9 +60,11 @@
             $sql = "INSERT INTO hologramBot_log(id_card,status,waktu) VALUES ('$card_id','$status','$waktu')";
             if (!mysqli_query($conn,$sql)){            
                 $pesan = 'Terjadi Kesalahan penulisan log';
-                sendMessage($chat_id, $pesan, $token);
+                // sendMessage($chat_id, $pesan, $token);
             }
         }
+
+        
     }else{
         echo "Link tidak tervalidasi!";
     }
