@@ -1,18 +1,16 @@
 <?php
     include 'db_access.php';
+    include 'global.php';
    
-    
-    
-    $token = '935743271:AAH_FkEs0Zzfm3MwXflAWHAkLuZbGH3ZEbc';
-    $hologram_id = '-1001195370799';
-    $adnan_id = '108488036';
+     // $chat_id = $update["message"]["chat"]["id"];
+    $chat_id = $adnan_id;
 
     $getter = file_get_contents("php://input");
 
     $update = json_decode($getter, TRUE);
 
-    // $chat_id = $update["message"]["chat"]["id"];
-    $chat_id = $adnan_id;
+   
+   
     $message = $update["message"]["text"];
     $username = $update["message"]["from"]["username"];
     $user_id = $update["message"]["from"]["id"];
@@ -38,7 +36,7 @@
     }
 
     $pesan = '';
-    include 'global.php';
+    
     $timestamp = date_timestamp_get($date);
 
     $sql = "";
@@ -80,41 +78,46 @@
         }else{
            
             $card_id = substr($message, 8);
-            $check_user = mysqli_query($conn,"SELECT * FROM hologramBot_user WHERE id_card='".$card_id."'");
-            if (mysqli_num_rows($check_user) > 0) {
-                //id dikenali                        
-                $pesan = 'Kartu sudah terdaftar!';
+            if($card_id == ''){
+                $pesan = 'Id Kartu tidak valid!';
             }else{
-                //id baru
-                $status = "daftar";
-                $sql = "INSERT INTO hologramBot_user(id_user,id_card,first_name,last_name,username,timestamp) VALUES ('$user_id','$card_id','$first_name','$last_name','$username','$timestamp')";
-                if (!mysqli_query($conn,$sql)){            
-                    $pesan = 'Terjadi Kesalahan pendaftaran user';
-    
+                $check_user = mysqli_query($conn,"SELECT * FROM hologramBot_user WHERE id_card='".$card_id."'");
+                if (mysqli_num_rows($check_user) > 0) {
+                    //id dikenali                        
+                    $pesan = 'Kartu sudah terdaftar!';
                 }else{
-                    $last_id = mysqli_insert_id($conn);
-                    // sendRegisterLink($last_id);
-                    $id_query = "";
-                    $time_query = "";
-                    $check_user = mysqli_query($conn,"SELECT * FROM hologramBot_user WHERE no_user='".$last_id."'");
-                    if (mysqli_num_rows($check_user) > 0) {
-                        //id dikenali
-                        while($row = mysqli_fetch_assoc($check_user)) {
-                            $id_query = $row['id_user'];
-                            $time_query = $row['timestamp'];                            
-                        }
-            
-                        $daftar_url = "https://makassarrobotics.000webhostapp.com/hologramBot/daftar.php?id=".$id_query."&token=".$time_query;
-                        $pesan = "Isi data kamu pada link berikut :".PHP_EOL.$daftar_url;
-                        
-                
+                    //id baru
+                    $status = "daftar";
+                    $sql = "INSERT INTO hologramBot_user(id_user,id_card,first_name,last_name,username,timestamp) VALUES ('$user_id','$card_id','$first_name','$last_name','$username','$timestamp')";
+                    if (!mysqli_query($conn,$sql)){            
+                        $pesan = 'Terjadi Kesalahan pendaftaran user!';
+        
                     }else{
-                        //id tidak dikenali
-                        $pesan = 'Terjadi Kesalahan pengiriman URL pendaftaran.';            
-                                  
+                        $last_id = mysqli_insert_id($conn);
+                        // sendRegisterLink($last_id);
+                        $id_query = "";
+                        $time_query = "";
+                        $check_user = mysqli_query($conn,"SELECT * FROM hologramBot_user WHERE no_user='".$last_id."'");
+                        if (mysqli_num_rows($check_user) > 0) {
+                            //id dikenali
+                            while($row = mysqli_fetch_assoc($check_user)) {
+                                $id_query = $row['id_user'];
+                                $time_query = $row['timestamp'];                            
+                            }
+                
+                            $daftar_url = "https://makassarrobotics.000webhostapp.com/hologramBot/daftar.php?id=".$id_query."&token=".$time_query;
+                            $pesan = "Isi data kamu pada link berikut :".PHP_EOL.$daftar_url;
+                            
+                    
+                        }else{
+                            //id tidak dikenali
+                            $pesan = 'Terjadi Kesalahan pengiriman URL pendaftaran.';            
+                                      
+                        }
                     }
                 }
             }
+            
             
         }
         

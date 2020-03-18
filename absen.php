@@ -3,11 +3,7 @@
     include 'db_access.php';
     include 'global.php';
 
-    $token = '935743271:AAH_FkEs0Zzfm3MwXflAWHAkLuZbGH3ZEbc';
-    $hologram_id = '-1001195370799';
-    $adnan_id = '108488036';
-
-    
+    // $chat_id = $hologram_id;
     $chat_id = $adnan_id;
 
     $sql = "";
