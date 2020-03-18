@@ -10,8 +10,8 @@
     $status = "";
     $identity = "";
    
-    if(isset($_GET['card'])) {
-        $card_id = $_GET['card'];
+    if(isset($_POST['card'])) {
+        $card_id = $_POST['card'];
         $check_user = mysqli_query($conn,"SELECT * FROM hologramBot_user WHERE id_card='" .$card_id."' order by no_user asc limit 1");
         if (mysqli_num_rows($check_user) > 0) {
             //id dikenali
