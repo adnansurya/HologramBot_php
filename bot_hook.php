@@ -57,12 +57,12 @@
             $pesan = 'Belum ada orang di Ambeso.';
         }
     }elseif(getComm($message, '/log')){        
-        $check = mysqli_query($conn,"SELECT * FROM hologramBot_hadir_log order by id_log desc limit 10");
+        $check = mysqli_query($conn,"SELECT hologramBot_user.nickname, hologramBot_user.username, hologramBot_log.waktu, hologramBot_log.status FROM hologramBot_log INNER JOIN hologramBot_user ON hologramBot_user.id_card = hologramBot_log.id_card order by hologramBot_log.id_log desc limit 10");
         if (mysqli_num_rows($check) > 0) {
             $pesan = '10 Aktifitas Terakhir :'.PHP_EOL .PHP_EOL;
             while($row = mysqli_fetch_assoc($check)) {
                 $nomor++;
-                $satu =  $nomor . '. @' . $row['username'] . ' - '. $row['status'] . ' ('. $row['waktu'] . ')' . PHP_EOL;
+                $satu =  $nomor. '. '. $row['nickname'] .' / @' . $row['username']. PHP_EOL . "  - ". $row['status'] . ' ('. $row['waktu'] . ')' . PHP_EOL;
                 $pesan = $pesan.$satu; 
             }
         }else {
@@ -71,7 +71,7 @@
     }elseif(strpos($message, '/daftar') == 0){            
         if($chat_id != $user_id){
             if($chat_id == $hologram_id){
-                $pesan = 'Untuk mendaftar, chat (PC) saya dengan format:'.PHP_EOL.'/daftar <id_kartu>';
+                $pesan = 'Untuk mendaftar, chat (PC) saya dengan format:'.PHP_EOL.'/daftar <id_kartu>' .PHP_EOL.PHP_EOL.'PENTING: Jangan mendaftar dengan sembarang id_kartu!';
             }else{
                 $pesan = 'Gunakan HologramBot hanya pada Grup HOLOGRAM!';
             }            
