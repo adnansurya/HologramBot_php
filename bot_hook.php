@@ -44,13 +44,12 @@
     $nomor = 0;
     // $check = mysqli_query($conn,"SELECT * FROM hologramBot_hadir WHERE user_id='" .$user_id."'");
     if(getComm($message, '/cek')){           
-        $check = mysqli_query($conn,"SELECT * FROM hologramBot_hadir");
+        $check = mysqli_query($conn,"SELECT hologramBot_user.nickname, hologramBot_user.username, hologramBot_hadir.waktu FROM hologramBot_hadir INNER JOIN hologramBot_user ON hologramBot_user.id_card = hologramBot_hadir.id_card");
         if (mysqli_num_rows($check) > 0) {
             $pesan = 'Anggota yang hadir saat ini :'.PHP_EOL .PHP_EOL;
             while($row = mysqli_fetch_assoc($check)) {
-                $nomor++; 
-                $satu = 'User'.$nomor.PHP_EOL;               
-                // $satu = $nomor . '. ' .$row['first_name'] .' '. $row['last_name'] .' (@'. $row['username'] . ') - '. $row['status']. PHP_EOL;
+                $nomor++;                                
+                $satu = $nomor . '. '. $row['nickname'] .' (@'. $row['username'] . ') - '. $row['waktu']. PHP_EOL;
                 $pesan = $pesan.$satu; 
             }
         }else {
