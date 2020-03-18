@@ -50,7 +50,7 @@
             while($row = mysqli_fetch_assoc($check)) {
                 $nomor++;
                 $waktu_split = explode(" ", $row['waktu']);                                
-                $satu = $nomor . '. '. $row['nickname'] .' (@'. $row['username'] . ') dari jam '. $waktu_split[1]. PHP_EOL;
+                $satu = $nomor . '. '. $row['nickname'] .' (@'. $row['username'] . ') dari jam '. $waktu_split[1].' WITA'. PHP_EOL;
                 $pesan = $pesan.$satu; 
             }
         }else {
