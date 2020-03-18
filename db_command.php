@@ -2,9 +2,15 @@
     if(isset($_POST['user_id']) && isset($_POST['time_id']) && isset($_POST['action'])) {
         include 'db_access.php';
         include 'global.php';
+
+        
+       
+
         $user_id = $_POST['user_id'];
         $timestamp = $_POST['time_id'];
-        $action = $_POST['action']; 
+        $action = $_POST['action'];
+
+        $chat_id = $user_id;
 
         // echo $user_id.PHP_EOL.$timestamp;
         $check_user = mysqli_query($conn,"SELECT * FROM hologramBot_user WHERE id_user='".$user_id."' AND timestamp='".$timestamp."' order by no_user asc limit 1");
@@ -21,24 +27,29 @@
                 $email = $_POST['email'];
                 $no_hp = $_POST['no_hp'];
                 $alamat = $_POST['alamat'];
-                $sql = `UPDATE hologramBot_user SET 
-                first_name = '`.$first_name.`', 
-                last_name = '`.$last_name.`',
-                nickname = '`.$nickname.`' , 
-                username = '`.$username.`' , 
-                pekerjaan = '`.$pekerjaan.`' , 
-                instansi = '`.$instansi.`',
-                email = '`.$email.`',
-                no_hp = '`.$no_hp.`',
-                alamat = '`.$alamat.`'  
-                WHERE user_id='` .$user_id. `' AND timestamp='`.$timestamp.`'`;
-
-                if (!mysqli_query($conn,$sql)){            
-                    $pesan = 'Terjadi Kesalahan';
+                
+                $sql = "UPDATE hologramBot_user SET  
+                    first_name = '".$first_name."',  
+                    last_name = '".$last_name."', 
+                    nickname = '".$nickname."' ,  
+                    username = '".$username."' ,  
+                    pekerjaan = '".$pekerjaan."',  
+                    instansi = '".$instansi."', 
+                    email = '".$email."', 
+                    no_hp = '".$no_hp."', 
+                    alamat = '".$alamat."'   
+                    WHERE id_user='" .$user_id. "' AND timestamp='".$timestamp."'";
+                
+                $pesan = '';
+                if (!mysqli_query($conn,$sql)){                               
+                    $pesan = 'Terjadi kesalahan pada Pendaftaran';
+                    echo $pesan;
                 }else{
-                    $pesan = $first_name." ".$last_name." (@".$username.") sedang keluar untuk sementara waktu.";
-                }          
-                                       
+                    echo 'Pendaftaran Berhasil, silahkan tutup halaman ini dan gunakan kartu.';
+                    $pesan = 'Pendaftaran Berhasil, silahkan gunakan kartu.';
+                }
+                sendMessage($chat_id, $pesan, $token);          
+
             }else{
                 echo 'Aksi tidak dikenali!';
             } 
