@@ -60,7 +60,7 @@
             $sql = "INSERT INTO hologramBot_log(id_card,status,waktu) VALUES ('$card_id','$status','$waktu')";
             if (!mysqli_query($conn,$sql)){            
                 $pesan = 'Terjadi Kesalahan penulisan log';
-                // sendMessage($chat_id, $pesan, $token);
+                sendMessage($chat_id, $pesan, $token);
             }
         }
 
