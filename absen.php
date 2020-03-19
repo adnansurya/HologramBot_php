@@ -3,8 +3,8 @@
     include 'db_access.php';
     include 'global.php';
 
-    // $chat_id = $hologram_id;
-    $chat_id = $adnan_id;
+    $chat_id = $hologram_id;
+    // $chat_id = $adnan_id;
 
     $sql = "";
     $status = "";
@@ -29,7 +29,7 @@
                 if (!mysqli_query($conn,$sql)){            
                     $pesan = 'Terjadi Kesalahan pada database kehadiran';
                 }else{
-                    $pesan = $identity." telah meninggalkan Ambeso.".PHP_EOL."Suhu Tubuh: ".$suhu;
+                    $pesan = $identity." telah meninggalkan Ambeso.".PHP_EOL."Suhu Tubuh: ".$suhu."°C";
                 }
                 $status = "keluar";
             }else{
@@ -40,7 +40,7 @@
                 if (!mysqli_query($conn,$sql)){            
                     $pesan = 'Terjadi Kesalahan pada database kehadiran';
                 }else{
-                    $pesan = $identity." sedang berada di Ambeso.".PHP_EOL."Suhu Tubuh: ".$suhu;
+                    $pesan = $identity." sedang berada di Ambeso.".PHP_EOL."Suhu Tubuh: ".$suhu."°C";
                 }
                 $status = "hadir";
             }
@@ -54,12 +54,6 @@
             $pesan = "Orang tak dikenal sedang berada di Ambeso.";
         }
         
-
-       
-
-
-
-
         sendMessage($chat_id,  $pesan, $token);
         echo $pesan;
 
