@@ -1,0 +1,222 @@
+
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+#include <Adafruit_MLX90614.h>
+#include <SPI.h>
+#include <MFRC522.h>
+#include <ESP8266WiFi.h>
+#include <WiFiClientSecure.h> 
+#include <ESP8266WebServer.h>
+#include <ESP8266HTTPClient.h>
+
+
+#define SS_PIN D8
+#define RST_PIN D3
+#define SCREEN_WIDTH 128 // OLED display width, in pixels
+#define SCREEN_HEIGHT 64 // OLED display height, in pixels
+
+/* Set these to your desired credentials. */
+const char *ssid = "HOLOGRAM";  //ENTER YOUR WIFI SETTINGS
+const char *password = "untukapa?";
+
+//Web/Server address to read/write from 
+const char *host = "makassarrobotics.000webhostapp.com";
+const int httpsPort = 443;  //HTTPS= 443 and HTTP = 80
+
+//SHA1 finger print of certificate use web browser to view and copy
+const char fingerprint[] PROGMEM = "5B FB D1 D4 49 D3 0F A9 C6 40 03 34 BA E0 24 05 AA D2 E2 01";
+
+// Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
+Adafruit_MLX90614 mlx = Adafruit_MLX90614();
+MFRC522 mfrc522(SS_PIN, RST_PIN);   // Create MFRC522 instance.
+
+void setup() {
+  Serial.begin(9600);
+
+  
+
+  SPI.begin();      // Initiate  SPI bus
+  mfrc522.PCD_Init();   // Initiate MFRC522
+  Serial.println("Approximate your card to the reader...");
+  Serial.println();
+  
+  mlx.begin(); 
+
+  if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) { // Address 0x3D for 128x64
+    Serial.println(F("SSD1306 allocation failed"));
+    for(;;);
+  }
+
+  WiFi.mode(WIFI_OFF);        //Prevents reconnection issue (taking too long to connect)
+  delay(1000);
+  WiFi.mode(WIFI_STA);        //Only Station No AP, This line hides the viewing of ESP as wifi hotspot
+  
+  WiFi.begin(ssid, password);     //Connect to your WiFi router
+  Serial.println("");
+  display.clearDisplay();
+  display.setTextColor(WHITE);
+  display.setTextSize(1);
+  display.setCursor(10, 10);
+  display.print("Connecting");
+ 
+  // Wait for connection
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    display.print(".");
+     display.display(); 
+  }
+
+  //If connection successful show IP address in serial monitor
+  Serial.println("");
+  display.clearDisplay();
+  display.setTextSize(1);
+  display.setCursor(0, 10);
+  display.print("Connected to ");
+  display.println(ssid);
+  display.display();
+  delay(2500); 
+  display.println("IP address: ");
+  display.println(WiFi.localIP());  //IP address assigned to your ESP
+  display.display();
+  delay(2500); 
+  display.clearDisplay();
+
+  display.setTextSize(2);
+  display.setTextColor(WHITE);
+  display.setCursor(0, 10);
+  // Display static text
+  display.println("SILAHKAN");
+  display.println("TAP KARTU ANDA");
+  display.display(); 
+  
+}
+
+void loop() {
+
+  display.clearDisplay();
+
+  display.setTextSize(2);
+  display.setTextColor(WHITE);
+  display.setCursor(0, 10);
+  // Display static text
+  display.println("SILAHKAN");
+  display.println("TAP KARTU ANDA");
+  display.display();
+
+  // Look for new cards
+  if ( ! mfrc522.PICC_IsNewCardPresent()) 
+  {
+    return;
+  }
+  // Select one of the cards
+  if ( ! mfrc522.PICC_ReadCardSerial()) 
+  {
+    return;
+  }
+
+  Serial.print("UID tag :");
+  String content= "";
+  String uid = "";
+  byte letter;
+  for (byte i = 0; i < mfrc522.uid.size; i++) 
+  {
+     content.concat(String(mfrc522.uid.uidByte[i] < 0x10 ? " 0" : "-"));
+     content.concat(String(mfrc522.uid.uidByte[i], HEX));
+  }
+  content.toUpperCase();
+  uid = content.substring(1);
+ 
+  Serial.println(uid);
+
+  
+  display.clearDisplay();
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  display.setCursor(0, 10);
+  display.println("ID Kartu : ");
+  display.setCursor(0, 20);
+  display.println(uid);
+  display.setCursor(0, 33);
+  display.setTextSize(1);
+  display.println("Suhu Tubuh : ");
+  display.setCursor(0, 43);
+  display.setTextSize(2); 
+  display.print(mlx.readObjectTempC());
+  display.print(" ");
+  display.print((char)247); 
+  display.println("C");
+
+  
+  
+  
+  display.display();
+  sendPostData(uid, String(mlx.readObjectTempC())); 
+  
+}
+
+
+void sendPostData(String card, String temp){
+  card.trim();
+  temp.trim();
+  WiFiClientSecure httpsClient;    //Declare object of class WiFiClient
+
+  Serial.println(host);
+
+  Serial.printf("Using fingerprint '%s'\n", fingerprint);
+  httpsClient.setFingerprint(fingerprint);
+  httpsClient.setTimeout(15000); // 15 Seconds
+  delay(1000);
+  
+  Serial.print("HTTPS Connecting");
+  int r=0; //retry counter
+  while((!httpsClient.connect(host, httpsPort)) && (r < 30)){
+      delay(100);
+      Serial.print(".");
+      r++;
+  }
+  if(r==30) {
+    Serial.println("Connection failed");
+  }
+  else {
+    Serial.println("Connected to web");
+  }
+  
+  String getData, Link, reqData, dataLength;
+  
+  //POST Data
+  Link = "/hologramBot/absen.php";
+  reqData = "card="+card+"&suhu="+temp;
+  dataLength = String(reqData.length());
+
+  Serial.print("requesting URL: ");
+  Serial.println(host);
+
+  httpsClient.print(String("POST ") + Link + " HTTP/1.1\r\n" +
+               "Host: " + host + "\r\n" +
+               "Content-Type: application/x-www-form-urlencoded"+ "\r\n" +
+               "Content-Length: "+ dataLength + "\r\n\r\n" +
+                reqData + "\r\n" +
+               "Connection: close\r\n\r\n");
+
+  Serial.println("request sent");
+                  
+  while (httpsClient.connected()) {
+    String line = httpsClient.readStringUntil('\n');
+    if (line == "\r") {
+      Serial.println("headers received");
+      break;
+    }
+  }
+
+  Serial.println("reply was:");
+  Serial.println("==========");
+  String line;
+  while(httpsClient.available()){        
+    line = httpsClient.readStringUntil('\n');  //Read Line by Line
+    Serial.println(line); //Print response
+  }
+  Serial.println("==========");
+  Serial.println("closing connection");  
+}
