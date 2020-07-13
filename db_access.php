@@ -1,18 +1,11 @@
 <?php
 
-$local = false;
 
-if($local){
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "id6774493_mksrobotics";
-}else{
-    $servername = "localhost";
-    $username = "id6774493_mksrobotics";
-    $password = "mksrobotics";
-    $dbname = "id6774493_mksrobotics";
-}
+$servername = "localhost";
+$username = "id13879968_adnanmikro";
+$password = "Makassar-1995";
+$dbname = "id13879968_betaku";
+
 
 
 // Create connection

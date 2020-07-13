@@ -1,8 +1,6 @@
 <?php 
 
-    $token = '935743271:AAH_FkEs0Zzfm3MwXflAWHAkLuZbGH3ZEbc';
-    $hologram_id = '-1001195370799';
-    $adnan_id = '108488036';
+    include 'secret.php';
 
 
 

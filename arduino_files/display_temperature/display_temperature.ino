@@ -38,19 +38,27 @@ void loop() {
   display.setTextColor(WHITE);
   display.setCursor(0, 0);
   // Display dynamic text
-  display.print("Ambient = "); 
-  display.print(mlx.readAmbientTempC()); 
-  display.print("*C\nObject = "); 
+  display.println("Suhu Ruangan :"); 
+  display.setTextSize(2);
+  display.println(mlx.readAmbientTempC()); 
+  display.setTextSize(1);
+  display.println("\nSuhu Objek :"); 
+  display.setTextSize(2);
   display.print(mlx.readObjectTempC()); 
-  display.println("*C");
+  display.println(" *C");
   
-  display.print("Ambient = "); 
-  display.print(mlx.readAmbientTempF()); 
-  display.print("*F\nObject = "); 
-  display.print(mlx.readObjectTempF()); 
-  display.println("*F");
+//  display.print("Ambient = "); 
+//  display.print(mlx.readAmbientTempF()); 
+//  display.print("*F\nObject = "); 
+//  display.print(mlx.readObjectTempF()); 
+//  display.println("*F");
 
   display.display();
+
+
+  Serial.print(mlx.readAmbientTempC());
+  Serial.print("|");
+  Serial.println(mlx.readObjectTempC());
   delay(500); 
   
 }

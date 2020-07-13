@@ -44,25 +44,25 @@
     $nomor = 0;
     // $check = mysqli_query($conn,"SELECT * FROM hologramBot_hadir WHERE user_id='" .$user_id."'");
     if(getComm($message, '/cek')){           
-        $check = mysqli_query($conn,"SELECT hologramBot_user.nickname, hologramBot_user.username, hologramBot_hadir.waktu, hologramBot_hadir.suhu FROM hologramBot_hadir INNER JOIN hologramBot_user ON hologramBot_user.id_card = hologramBot_hadir.id_card");
+        $check = mysqli_query($conn,"SELECT hologramBot_user.username, hologramBot_user.first_name, hologramBot_user.last_name, hologramBot_hadir.waktu FROM hologramBot_hadir INNER JOIN hologramBot_user ON hologramBot_user.id_card = hologramBot_hadir.id_card");
         if (mysqli_num_rows($check) > 0) {
             $pesan = 'Anggota yang hadir saat ini :'.PHP_EOL .PHP_EOL;
             while($row = mysqli_fetch_assoc($check)) {
                 $nomor++;
                 $waktu_split = explode(" ", $row['waktu']);                                
-                $satu = $nomor . '. '. $row['nickname'] .' (@'. $row['username'] . ') dari jam '. $waktu_split[1].' WITA'." - Suhu: ".$row['suhu']."°C";
+                $satu = $nomor . '. '. $row['first_name'] .' '. $row['last_name'] .' (@'. $row['username'] . ') dari jam '. $waktu_split[1].' WITA'.PHP_EOL;
                 $pesan = $pesan.$satu; 
             }
         }else {
             $pesan = 'Belum ada orang di Ambeso.';
         }
     }elseif(getComm($message, '/log')){        
-        $check = mysqli_query($conn,"SELECT hologramBot_user.nickname, hologramBot_user.username, hologramBot_log.waktu, hologramBot_log.status, hologramBot_log.suhu FROM hologramBot_log INNER JOIN hologramBot_user ON hologramBot_user.id_card = hologramBot_log.id_card order by hologramBot_log.id_log desc limit 10");
+        $check = mysqli_query($conn,"SELECT hologramBot_user.first_name, hologramBot_user.last_name, hologramBot_user.username, hologramBot_log.waktu, hologramBot_log.status FROM hologramBot_log INNER JOIN hologramBot_user ON hologramBot_user.id_card = hologramBot_log.id_card order by hologramBot_log.id_log desc limit 5");
         if (mysqli_num_rows($check) > 0) {
-            $pesan = '10 Aktifitas Terakhir :'.PHP_EOL .PHP_EOL;
+            $pesan = '5 Aktifitas Terakhir :'.PHP_EOL .PHP_EOL;
             while($row = mysqli_fetch_assoc($check)) {
                 $nomor++;
-                $satu =  $nomor. '. '. $row['nickname'] .' / @' . $row['username']. PHP_EOL . "  - ". $row['status'] . ' ('. $row['waktu'] . ')'.PHP_EOL ."  - Suhu: ".$row['suhu']."°C".PHP_EOL;
+                $satu =  $nomor. '. '. $row['first_name'] .' '. $row['last_name'] .' / @' . $row['username']. PHP_EOL . "  - ". $row['status'] . ' ('. $row['waktu'] . ')'.PHP_EOL ;
                 $pesan = $pesan.$satu; 
             }
         }else {
@@ -94,27 +94,28 @@
                         $pesan = 'Terjadi Kesalahan pendaftaran user!';
         
                     }else{
-                        $last_id = mysqli_insert_id($conn);
-                        // sendRegisterLink($last_id);
-                        $id_query = "";
-                        $time_query = "";
-                        $check_user = mysqli_query($conn,"SELECT * FROM hologramBot_user WHERE no_user='".$last_id."'");
-                        if (mysqli_num_rows($check_user) > 0) {
-                            //id dikenali
-                            while($row = mysqli_fetch_assoc($check_user)) {
-                                $id_query = $row['id_user'];
-                                $time_query = $row['timestamp'];                            
-                            }
+                        // $last_id = mysqli_insert_id($conn);
+                        // // sendRegisterLink($last_id);
+                        // $id_query = "";
+                        // $time_query = "";
+                        // $check_user = mysqli_query($conn,"SELECT * FROM hologramBot_user WHERE no_user='".$last_id."'");
+                        // if (mysqli_num_rows($check_user) > 0) {
+                        //     //id dikenali
+                        //     while($row = mysqli_fetch_assoc($check_user)) {
+                        //         $id_query = $row['id_user'];
+                        //         $time_query = $row['timestamp'];                            
+                        //     }
                 
-                            $daftar_url = "https://makassarrobotics.000webhostapp.com/hologramBot/daftar.php?id=".$id_query."&token=".$time_query;
-                            $pesan = "Isi data kamu pada link berikut :".PHP_EOL.$daftar_url;
+                        //     $daftar_url = "https://makassarrobotics.000webhostapp.com/hologramBot/daftar.php?id=".$id_query."&token=".$time_query;
+                        //     $pesan = "Isi data kamu pada link berikut :".PHP_EOL.$daftar_url;
                             
                     
-                        }else{
-                            //id tidak dikenali
-                            $pesan = 'Terjadi Kesalahan pengiriman URL pendaftaran.';            
+                        // }else{
+                        //     //id tidak dikenali
+                        //     $pesan = 'Terjadi Kesalahan pengiriman URL pendaftaran.';            
                                       
-                        }
+                        // }
+                        $pesan = 'Pendaftaran berhasil!';
                     }
                 }
             }
