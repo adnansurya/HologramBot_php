@@ -8,12 +8,64 @@
 #include <WiFiClientSecure.h> 
 #include <ESP8266WebServer.h>
 #include <ESP8266HTTPClient.h>
+#include <SoftwareSerial.h>
+#include <DFMiniMp3.h>
 
+// implement a notification class,
+// its member methods will get called 
 
 #define SS_PIN D8
 #define RST_PIN D3
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
 #define SCREEN_HEIGHT 64 // OLED display height, in pixels
+//
+class Mp3Notify
+{
+public:
+  static void PrintlnSourceAction(DfMp3_PlaySources source, const char* action)
+  {
+    if (source & DfMp3_PlaySources_Sd) 
+    {
+        Serial.print("SD Card, ");
+    }
+    if (source & DfMp3_PlaySources_Usb) 
+    {
+        Serial.print("USB Disk, ");
+    }
+    if (source & DfMp3_PlaySources_Flash) 
+    {
+        Serial.print("Flash, ");
+    }
+    Serial.println(action);
+  }
+  static void OnError(uint16_t errorCode)
+  {
+    // see DfMp3_Error for code meaning
+    Serial.println();
+    Serial.print("Com Error ");
+    Serial.println(errorCode);
+  }
+  static void OnPlayFinished(DfMp3_PlaySources source, uint16_t track)
+  {
+    Serial.print("Play finished for #");
+    Serial.println(track);  
+  }
+  static void OnPlaySourceOnline(DfMp3_PlaySources source)
+  {
+    PrintlnSourceAction(source, "online");
+  }
+  static void OnPlaySourceInserted(DfMp3_PlaySources source)
+  {
+    PrintlnSourceAction(source, "inserted");
+  }
+  static void OnPlaySourceRemoved(DfMp3_PlaySources source)
+  {
+    PrintlnSourceAction(source, "removed");
+  }
+};
+
+
+
 
 /* Set these to your desired credentials. */
 const char *ssid = "HOLOGRAM2";  //ENTER YOUR WIFI SETTINGS
@@ -27,14 +79,26 @@ const int httpsPort = 443;  //HTTPS= 443 and HTTP = 80
 const char fingerprint[] PROGMEM = "5B FB D1 D4 49 D3 0F A9 C6 40 03 34 BA E0 24 05 AA D2 E2 01";
 
 
+
+
+DFMiniMp3<HardwareSerial, Mp3Notify> mp3(Serial);
 // Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 MFRC522 mfrc522(SS_PIN, RST_PIN);   // Create MFRC522 instance.
 
 void setup() {
-  Serial.begin(9600);
+//  Serial.begin(9600);/
 
-  
+    
+ if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) { // Address 0x3D for 128x64
+//    Serial.println(F("SSD1306 allocation failed"));/
+    for(;;);
+  }
+
+  mp3.begin();
+    uint16_t volume = mp3.getVolume();
+     mp3.setVolume(40);
+     uint16_t count = mp3.getTotalTrackCount(DfMp3_PlaySource_Sd); 
 
   SPI.begin();      // Initiate  SPI bus
   mfrc522.PCD_Init();   // Initiate MFRC522
@@ -42,17 +106,14 @@ void setup() {
   Serial.println();
   
 
-  if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) { // Address 0x3D for 128x64
-    Serial.println(F("SSD1306 allocation failed"));
-    for(;;);
-  }
+  
 
   WiFi.mode(WIFI_OFF);        //Prevents reconnection issue (taking too long to connect)
   delay(1000);
   WiFi.mode(WIFI_STA);        //Only Station No AP, This line hides the viewing of ESP as wifi hotspot
   
   WiFi.begin(ssid, password);     //Connect to your WiFi router
-  Serial.println("");
+//  Serial.println("");/
   display.clearDisplay();
   display.setTextColor(WHITE);
   display.setTextSize(1);
@@ -67,7 +128,7 @@ void setup() {
   }
 
   //If connection successful show IP address in serial monitor
-  Serial.println("");
+//  Serial.println("");/
   display.clearDisplay();
   display.setTextSize(1);
   display.setCursor(0, 10);
@@ -80,7 +141,7 @@ void setup() {
   display.display();
   delay(2500); 
   display.clearDisplay();
-
+  mp3.playMp3FolderTrack(1); 
   display.setTextSize(2);
   display.setTextColor(WHITE);
   display.setCursor(0, 10);
@@ -88,6 +149,7 @@ void setup() {
   display.println("SILAHKAN");
   display.println("TAP KARTU ANDA");
   display.display(); 
+      
   
 }
 
@@ -114,7 +176,7 @@ void loop() {
     return;
   }
 
-  Serial.print("UID tag :");
+//  Serial.print("UID tag :");/
   String content= "";
   String uid = "";
   byte letter;
@@ -126,7 +188,7 @@ void loop() {
   content.toUpperCase();
   uid = content.substring(1);
  
-  Serial.println(uid);
+//  Serial.println(uid);/
 
   
   display.clearDisplay();
@@ -150,14 +212,14 @@ void sendPostData(String card){
   card.trim();  
   WiFiClientSecure httpsClient;    //Declare object of class WiFiClient
 
-  Serial.println(host);
+//  Serial.println(host);/
 
-  Serial.printf("Using fingerprint '%s'\n", fingerprint);
+//  Serial.printf("Using fingerprint '%s'\n", fingerprint);/
   httpsClient.setFingerprint(fingerprint);
   httpsClient.setTimeout(15000); // 15 Seconds
   delay(1000);
   
-  Serial.print("HTTPS Connecting");
+//  Serial.print("HTTPS Connecting");/
   int r=0; //retry counter
   while((!httpsClient.connect(host, httpsPort)) && (r < 30)){
       delay(100);
@@ -165,7 +227,8 @@ void sendPostData(String card){
       r++;
   }
   if(r==30) {
-    Serial.println("Connection failed");
+//    Serial.println("Connection failed");/
+    mp3.playMp3FolderTrack(4); 
     display.setCursor(0, 43);
     display.setTextSize(1);
     display.println("Koneksi Gagal!");  
@@ -173,7 +236,7 @@ void sendPostData(String card){
     display.display();
   }
   else {
-    Serial.println("Connected to web");
+//    Serial.println("Connected to web");/
   }
   
   String getData, Link, reqData, dataLength;
@@ -183,8 +246,8 @@ void sendPostData(String card){
   reqData = "card="+card;
   dataLength = String(reqData.length());
 
-  Serial.print("requesting URL: ");
-  Serial.println(host);
+//  Serial.print("requesting URL: ");/
+//  Serial.println(host);/
 
   httpsClient.print(String("POST ") + Link + " HTTP/1.1\r\n" +
                "Host: " + host + "\r\n" +
@@ -193,30 +256,54 @@ void sendPostData(String card){
                 reqData + "\r\n" +
                "Connection: close\r\n\r\n");
 
-  Serial.println("request sent");
+//  Serial.println("request sent");/
                   
   while (httpsClient.connected()) {
     String line = httpsClient.readStringUntil('\n');
+    
     if (line == "\r") {
-      Serial.println("headers received");
+//      Serial.println("headers received");/
       break;
     }
   }
 
-  Serial.println("reply was:");
-  Serial.println("==========");
+//  Serial.println("reply was:");/
+//  Serial.println("==========");/
   String line;
-  while(httpsClient.available()){        
-    line = httpsClient.readStringUntil('\n');  //Read Line by Line
-    Serial.println(line); //Print response
-  }
-  Serial.println("==========");
-  Serial.println("closing connection");  
-  Serial.println("Connection failed");
   display.setCursor(0, 43);
   display.setTextSize(2);
-  display.println("OK!");
+  while(httpsClient.available()){        
+    line = httpsClient.readStringUntil('\n');  //Read Line by Line
+    line.trim();
+    if(line == "HADIR"){
+       mp3.playMp3FolderTrack(2);
+       
+        display.println(line);
+       display.display(); 
+    }else if(line == "KELUAR"){
+       mp3.playMp3FolderTrack(3); 
+       display.println(line);
+       display.display(); 
+    }else if(line == "ERROR"){
+       mp3.playMp3FolderTrack(4);  
+       display.println(line);
+       display.display();  
+    }
+    
+//    Serial.println(line); //Print response/
+  }
+//  Serial.println("==========");
+//  Serial.println("closing connection");  
+//  Serial.println("Connection failed");
+
+display.setCursor(0, 43);
+  display.setTextSize(2);
+  display.println("OK");
      display.display();
+     
+
+
+  
   delay(2000);
     
 }

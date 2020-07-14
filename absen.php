@@ -9,6 +9,7 @@
     $sql = "";
     $status = "";
     $identity = "";
+    $response = "";
 
    
     if(isset($_POST['card'])) {
@@ -30,8 +31,10 @@
                         $sql = "DELETE FROM hologramBot_hadir WHERE id_card='" .$card_id. "'";
                         if (!mysqli_query($conn,$sql)){            
                             $pesan = 'Terjadi Kesalahan pada database kehadiran';
+                            $response = 'ERROR';
                         }else{
                             $pesan = $identity." telah meninggalkan Ambeso.";
+                            $response = 'KELUAR';
                         }
                         $status = "keluar";
                     }else{
@@ -41,8 +44,10 @@
                         
                         if (!mysqli_query($conn,$sql)){            
                             $pesan = 'Terjadi Kesalahan pada database kehadiran';
+                            $response = 'ERROR';
                         }else{
                             $pesan = $identity." sedang berada di Ambeso.";
+                            $response = 'HADIR';
                         }
                         $status = "hadir";
                     }
@@ -57,6 +62,7 @@
                 sendMessage($adnan_id,  "Id Kartu : ", $token);
                 sendMessage($adnan_id,  $card_id, $token);
                 $pesan = "Orang tak dikenal sedang berada di Ambeso.";
+                $response = 'ERROR';
             }
 
         }else{
@@ -65,7 +71,8 @@
        
         
         sendMessage($chat_id,  $pesan, $token);
-        echo $pesan;
+        echo $response;
+        
 
         if($status != "" && $card_id != ""){
             $sql = "INSERT INTO hologramBot_log(id_card,status,waktu) VALUES ('$card_id','$status','$waktu')";
