@@ -62,7 +62,7 @@
                 sendMessage($adnan_id,  "Id Kartu : ", $token);
                 sendMessage($adnan_id,  $card_id, $token);
                 $pesan = "Orang tak dikenal sedang berada di Ambeso.";
-                $response = 'ERROR';
+                $response = 'UNKNOWN';
             }
 
         }else{

@@ -97,7 +97,7 @@ void setup() {
 
   mp3.begin();
     uint16_t volume = mp3.getVolume();
-     mp3.setVolume(40);
+   mp3.setVolume(40);
      uint16_t count = mp3.getTotalTrackCount(DfMp3_PlaySource_Sd); 
 
   SPI.begin();      // Initiate  SPI bus
@@ -132,37 +132,44 @@ void setup() {
   display.clearDisplay();
   display.setTextSize(1);
   display.setCursor(0, 10);
-  display.print("Connected to ");
+  display.println("Connected to :");
+  display.setTextSize(2);
   display.println(ssid);
   display.display();
   delay(2500); 
+  display.setTextSize(1);
   display.println("IP address: ");
   display.println(WiFi.localIP());  //IP address assigned to your ESP
   display.display();
   delay(2500); 
   display.clearDisplay();
+  
+  
+  
   mp3.playMp3FolderTrack(1); 
-  display.setTextSize(2);
+  display.setTextSize(3);
   display.setTextColor(WHITE);
   display.setCursor(0, 10);
   // Display static text
-  display.println("SILAHKAN");
-  display.println("TAP KARTU ANDA");
+  display.println("STARTUP OK");  
   display.display(); 
-      
+  pinMode(D0, OUTPUT);
+  digitalWrite(D0, HIGH);
+  delay(2000);   
   
 }
 
 void loop() {
-
+  digitalWrite(D0, LOW);
+  mp3.setVolume(40);
   display.clearDisplay();
 
-  display.setTextSize(2);
+  display.setTextSize(3);
   display.setTextColor(WHITE);
   display.setCursor(0, 10);
   // Display static text
-  display.println("SILAHKAN");
-  display.println("TAP KARTU ANDA");
+  display.println("TAP");  
+  display.print("KARTU");
   display.display();
 
   // Look for new cards
@@ -185,6 +192,8 @@ void loop() {
      content.concat(String(mfrc522.uid.uidByte[i] < 0x10 ? " 0" : "-"));
      content.concat(String(mfrc522.uid.uidByte[i], HEX));
   }
+
+  digitalWrite(D0, HIGH);
   content.toUpperCase();
   uid = content.substring(1);
  
@@ -196,9 +205,8 @@ void loop() {
   display.setTextColor(WHITE);
   display.setCursor(0, 10);
   display.println("ID Kartu : ");
-  display.setCursor(0, 20);
+  display.setTextSize(2);
   display.println(uid);
-  display.setCursor(0, 33);
   display.setTextSize(1);
   display.println("Mengirim Data...");  
   
@@ -226,11 +234,15 @@ void sendPostData(String card){
       Serial.print(".");
       r++;
   }
+  display.clearDisplay();
+  display.setCursor(0, 10);
+  display.setTextSize(3);
   if(r==30) {
 //    Serial.println("Connection failed");/
-    mp3.playMp3FolderTrack(4); 
-    display.setCursor(0, 43);
-    display.setTextSize(1);
+    mp3.playMp3FolderTrack(4);
+     
+    
+    
     display.println("Koneksi Gagal!");  
     
     display.display();
@@ -269,23 +281,28 @@ void sendPostData(String card){
 
 //  Serial.println("reply was:");/
 //  Serial.println("==========");/
-  String line;
-  display.setCursor(0, 43);
-  display.setTextSize(2);
+  String line;  
   while(httpsClient.available()){        
     line = httpsClient.readStringUntil('\n');  //Read Line by Line
     line.trim();
     if(line == "HADIR"){
+      mp3.setVolume(30);
        mp3.playMp3FolderTrack(2);
        
         display.println(line);
        display.display(); 
     }else if(line == "KELUAR"){
+      mp3.setVolume(50);
        mp3.playMp3FolderTrack(3); 
        display.println(line);
        display.display(); 
-    }else if(line == "ERROR"){
+    }else if(line == "UNKNOWN"){
+       mp3.setVolume(20);
        mp3.playMp3FolderTrack(4);  
+       display.println(line);
+       display.display();  
+    }else if(line == "ERROR"){       
+       mp3.playMp3FolderTrack(5);  
        display.println(line);
        display.display();  
     }
