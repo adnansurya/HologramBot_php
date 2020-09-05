@@ -65,6 +65,7 @@
                 $satu =  $nomor. '. '. $row['first_name'] .' '. $row['last_name'] .' / @' . $row['username']. PHP_EOL . "  - ". $row['status'] . ' ('. $row['waktu'] . ')'.PHP_EOL ;
                 $pesan = $pesan.$satu; 
             }
+            $pesan = $pesan.PHP_EOL. 'Selengkapnya :'.PHP_EOL.'https://betaku.000webhostapp.com/hologramBot/';
         }else {
             $pesan = 'Log Kosong';
         }
