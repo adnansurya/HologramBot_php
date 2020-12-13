@@ -42,7 +42,6 @@
     $sql = "";
     $status = "";
     $nomor = 0;
-    // $check = mysqli_query($conn,"SELECT * FROM hologramBot_hadir WHERE user_id='" .$user_id."'");
     if(getComm($message, '/cek')){           
         $check = mysqli_query($conn,"SELECT hologramBot_user.username, hologramBot_user.first_name, hologramBot_user.last_name, hologramBot_hadir.waktu FROM hologramBot_hadir INNER JOIN hologramBot_user ON hologramBot_user.id_card = hologramBot_hadir.id_card");
         if (mysqli_num_rows($check) > 0) {
@@ -95,27 +94,7 @@
                         $pesan = 'Terjadi Kesalahan pendaftaran user!';
         
                     }else{
-                        // $last_id = mysqli_insert_id($conn);
-                        // // sendRegisterLink($last_id);
-                        // $id_query = "";
-                        // $time_query = "";
-                        // $check_user = mysqli_query($conn,"SELECT * FROM hologramBot_user WHERE no_user='".$last_id."'");
-                        // if (mysqli_num_rows($check_user) > 0) {
-                        //     //id dikenali
-                        //     while($row = mysqli_fetch_assoc($check_user)) {
-                        //         $id_query = $row['id_user'];
-                        //         $time_query = $row['timestamp'];                            
-                        //     }
-                
-                        //     $daftar_url = "https://makassarrobotics.000webhostapp.com/hologramBot/daftar.php?id=".$id_query."&token=".$time_query;
-                        //     $pesan = "Isi data kamu pada link berikut :".PHP_EOL.$daftar_url;
-                            
-                    
-                        // }else{
-                        //     //id tidak dikenali
-                        //     $pesan = 'Terjadi Kesalahan pengiriman URL pendaftaran.';            
-                                      
-                        // }
+                       
                         $pesan = 'Pendaftaran berhasil!';
                     }
                 }
@@ -130,9 +109,7 @@
         if($user_id != $adnan_id){
             $pesan = 'Maaf kak, command itu hanya untuk admin :)';
         }else{
-            // $msg_data = explode("#", $subcomm);
-            // $send_id = $msg_data[0];
-            // $admin_msg = $msg_data[1];
+           
             $msg_data = $subcomm;
             $pesan = "ADMIN : ". $msg_data;
             $send_id = $hologram_id;
@@ -140,51 +117,7 @@
             
         }        
     }
-    // elseif(getComm($message, '/keluar')){
-    //     $status = 'Keluar';
-    //     if (mysqli_num_rows($check) > 0) {
-    //         $sql = "UPDATE hologramBot_hadir SET status = '".$status."', username = '".$username."' , first_name = '".$first_name."' , last_name = '".$last_name."' , waktu = '".$waktu."' WHERE user_id='" .$user_id. "'";
-    //     }else{
-    //         $sql = "INSERT INTO hologramBot_hadir(user_id,username,first_name,last_name,status,waktu) VALUES ('$user_id','$username','$first_name','$last_name','$status','$waktu')";
-    //     }
-       
-    //     if (!mysqli_query($conn,$sql)){            
-    //         $pesan = 'Terjadi Kesalahan';
-    //     }else{
-    //         $pesan = $first_name." ".$last_name." (@".$username.") sedang keluar untuk sementara waktu.";
-    //     }
 
-    // }
-    // elseif(getComm($message, '/pulang')){
-    //     $status = 'Pulang';
-    //     $pesan = $first_name." ".$last_name." (@".$username.") sudah pulang.";
-    //     if (mysqli_num_rows($check) > 0) {
-    //         $sql = "DELETE FROM hologramBot_hadir WHERE user_id='" .$user_id. "'";
-    //         if (!mysqli_query($conn,$sql)){            
-    //             $pesan = 'Terjadi Kesalahan';
-    //         }
-    //     }
-    // }elseif(getComm($message, '/hadir')){
-    //     //sendMessage($adnan_id, 'adama', $token );
-    //     $status = 'Hadir';
-
-    //     if (mysqli_num_rows($check) > 0) {
-    //         $sql = "UPDATE hologramBot_hadir SET status = '".$status."', username = '".$username."' , first_name = '".$first_name."' , last_name = '".$last_name."' , waktu = '".$waktu."' WHERE user_id='" .$user_id. "'";
-    //     }else{
-    //         $sql = "INSERT INTO hologramBot_hadir(user_id,username,first_name,last_name,status,waktu) VALUES ('$user_id','$username','$first_name','$last_name','$status','$waktu')";
-    //     }
-       
-    //     if (!mysqli_query($conn,$sql)){            
-    //         $pesan = 'Terjadi Kesalahan';
-    //     }else{
-    //         $pesan = $first_name." ".$last_name." (@".$username.") sedang berada di Ambeso.";
-    //     }
-
-    // }
-    
-
-    
-    
     sendMessage($chat_id, $pesan, $token);
 
     if($status != "" && $card_id != ""){
