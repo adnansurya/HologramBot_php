@@ -1,17 +1,32 @@
 import serial
 import urllib.request as req
 import urllib.parse as par
-import json 
+import json
+from playsound import playsound
+import os
+
+
+
+def playRingtone(resultStr, toneStr):
+    path = os.getcwd()
+    mp3string ='tone' + "\\" + toneStr + "\\" + resultStr + '.mp3'
+    playsound(mp3string)
 
 def loadJson(teks):
     jsonObj = json.loads(teks)
-    result = jsonObj['result']
+    result = str(jsonObj['result']).lower()
     msg = jsonObj['msg']
     uid = jsonObj['data']['uid']
-    tone = jsonObj['data']['tone']['ringtone_name']
     
+    if(jsonObj['data']['tone'] != 'unknown'):
+        tone = jsonObj['data']['tone']['ringtone_name']
+    else:
+        tone = 'unknown'
+
+    print(result)
     print(uid)
     print(tone)
+    playRingtone(result, tone)
     
 
     
