@@ -125,6 +125,20 @@
         }
         
         
+    }elseif(getComm($message, '/admin')){  
+        $subcomm = substr($message, 7);
+        if($user_id != $adnan_id){
+            $pesan = 'Maaf kak, command itu hanya untuk admin :)';
+        }else{
+            // $msg_data = explode("#", $subcomm);
+            // $send_id = $msg_data[0];
+            // $admin_msg = $msg_data[1];
+            $msg_data = $subcomm;
+            $pesan = "ADMIN : ". $msg_data;
+            $send_id = $hologram_id;
+            sendMessage($send_id, $pesan, $token);
+            
+        }        
     }
     // elseif(getComm($message, '/keluar')){
     //     $status = 'Keluar';
