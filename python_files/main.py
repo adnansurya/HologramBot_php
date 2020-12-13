@@ -18,6 +18,6 @@ while True:
     line = ser.readline()
     clean_line = line.strip().decode( "utf-8" )
     if(line != ''):
-        
-        print('ID : ' + str(clean_line))
-        sendPost(clean_line)
+        uid = str(clean_line).replace(':','-')
+        print('ID : ' + uid)
+        sendPost(uid)
