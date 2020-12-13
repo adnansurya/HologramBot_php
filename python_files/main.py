@@ -4,6 +4,16 @@ import urllib.parse as par
 import json
 from playsound import playsound
 import os
+import serial.tools.list_ports
+
+selectedPort = ""
+ports = serial.tools.list_ports.comports()
+for port, desc, hwid in sorted(ports):
+    print("{}: {} [{}]".format(port, desc, hwid))
+    deskripsi = desc.lower()
+    if(deskripsi.find('arduino uno') != -1):
+        selectedPort = port
+        print("ARDUINO UNO PORT : " + selectedPort)
 
 
 
@@ -49,7 +59,12 @@ def sendPost(card_id):
     resText = handler.read().decode('utf-8')
     print(resText)
     return resText
+
+
     
+
+if(selectedPort == ""):
+    exit()
 
 ser = serial.Serial('COM5', 9600)
 try:
@@ -73,7 +88,7 @@ try:
                 loadJson(responText)
             else:
                 playRingtone('gagal', 'default')
-                
+
 except KeyboardInterrupt:
 
     print("Press Ctrl-C to terminate while statement")
