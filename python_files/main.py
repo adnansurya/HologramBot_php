@@ -42,7 +42,8 @@ def sendPost(card_id):
     handler = req.urlopen(apiurl,data)
     resText = handler.read().decode('utf-8')
     print(resText)
-    loadJson(resText)
+    return resText
+    
 
 ser = serial.Serial('COM5', 9600)
 
@@ -52,4 +53,17 @@ while True:
     if(line != ''):
         uid = str(clean_line).replace(':','-')
         print('ID : ' + uid)
-        sendPost(uid)
+
+        koneksi = False
+        
+        
+        try :
+            responText = sendPost(uid)
+            koneksi = True
+        except :
+            koneksi = False
+
+        if koneksi:
+            loadJson(responText)
+        else:
+            playRingtone('gagal', 'default')
