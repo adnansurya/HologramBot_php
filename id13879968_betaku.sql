@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 05, 2020 at 10:12 AM
+-- Generation Time: Dec 13, 2020 at 09:12 PM
 -- Server version: 10.3.16-MariaDB
--- PHP Version: 7.3.12
+-- PHP Version: 7.3.23
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -128,7 +128,8 @@ INSERT INTO `AdoraBot_message` (`id_msg`, `acc_id`, `message`, `time`) VALUES
 (62, 1224965694, '/create rumah inipassword', '2020-06-07 12:03:29'),
 (63, 108488036, '/unsubs AO-5edc671201413 inipassword', '2020-06-08 21:57:48'),
 (64, 1224965694, '/subscribe AO-5edc671201413 inipassword', '2020-06-08 21:58:57'),
-(65, 955866881, '/start', '2020-07-02 22:23:31');
+(65, 955866881, '/start', '2020-07-02 22:23:31'),
+(66, 108488036, 'on', '2020-10-28 21:37:29');
 
 -- --------------------------------------------------------
 
@@ -255,6 +256,13 @@ CREATE TABLE `hologramBot_hadir` (
   `id_card` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `waktu` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `hologramBot_hadir`
+--
+
+INSERT INTO `hologramBot_hadir` (`id_card`, `waktu`) VALUES
+('04-34-1F-CA-1B-29-80', '2020-12-14 02:27:07');
 
 -- --------------------------------------------------------
 
@@ -506,7 +514,167 @@ INSERT INTO `hologramBot_log` (`id_log`, `id_card`, `status`, `waktu`) VALUES
 (230, '19-F8-16-78', 'hadir', '2020-09-04 17:37:46'),
 (231, '04-63-76-CA-E5-5B-80', 'hadir', '2020-09-04 17:59:07'),
 (232, '04-63-76-CA-E5-5B-80', 'keluar', '2020-09-04 21:29:41'),
-(233, '19-F8-16-78', 'keluar', '2020-09-04 22:43:25');
+(233, '19-F8-16-78', 'keluar', '2020-09-04 22:43:25'),
+(234, '19-F8-16-78', 'hadir', '2020-09-05 19:05:34'),
+(235, '19-F8-16-78', 'keluar', '2020-09-05 22:13:50'),
+(236, '19-F8-16-78', 'hadir', '2020-09-06 19:36:43'),
+(237, '19-F8-16-78', 'keluar', '2020-09-06 23:06:25'),
+(238, '04-34-1F-CA-1B-29-80', 'hadir', '2020-09-07 19:50:19'),
+(239, '04-34-1F-CA-1B-29-80', 'keluar', '2020-09-07 23:00:10'),
+(240, '04-34-1F-CA-1B-29-80', 'hadir', '2020-09-09 15:05:23'),
+(241, '04-34-1F-CA-1B-29-80', 'keluar', '2020-09-09 20:46:38'),
+(242, '04-34-1F-CA-1B-29-80', 'hadir', '2020-09-10 16:02:12'),
+(243, '04-34-1F-CA-1B-29-80', 'keluar', '2020-09-10 22:46:46'),
+(244, '04-34-1F-CA-1B-29-80', 'hadir', '2020-09-14 20:08:43'),
+(245, '04-34-1F-CA-1B-29-80', 'keluar', '2020-09-14 23:38:00'),
+(246, '04-34-1F-CA-1B-29-80', 'hadir', '2020-09-17 12:13:50'),
+(247, '5B-3E-29-7B', 'daftar', '2020-09-17 13:26:01'),
+(248, '5B-3E-29-7B', 'hadir', '2020-09-17 13:26:21'),
+(249, '04-34-1F-CA-1B-29-80', 'keluar', '2020-09-19 13:54:14'),
+(250, '04-34-1F-CA-1B-29-80', 'hadir', '2020-09-19 13:54:28'),
+(251, '04-63-76-CA-E5-5B-80', 'hadir', '2020-09-19 15:15:14'),
+(252, '04-34-1F-CA-1B-29-80', 'keluar', '2020-09-19 22:21:50'),
+(253, '04-34-1F-CA-1B-29-80', 'hadir', '2020-09-23 17:54:11'),
+(254, '04-34-1F-CA-1B-29-80', 'keluar', '2020-09-23 22:59:57'),
+(255, '04-34-1F-CA-1B-29-80', 'hadir', '2020-10-13 20:14:42'),
+(256, '5B-3E-29-7B', 'keluar', '2020-10-13 20:21:00'),
+(257, '04-63-76-CA-E5-5B-80', 'keluar', '2020-10-13 20:21:45'),
+(258, '04-34-1F-CA-1B-29-80', 'keluar', '2020-10-13 20:22:24'),
+(259, '05-8E-39-98-63-A1 00', 'daftar', '2020-10-13 22:58:49'),
+(260, '04-34-1F-CA-1B-29-80', 'hadir', '2020-10-14 18:13:11'),
+(261, '04-34-1F-CA-1B-29-80', 'keluar', '2020-10-14 18:28:14'),
+(262, '04-34-1F-CA-1B-29-80', 'hadir', '2020-10-14 20:46:18'),
+(263, '04-34-1F-CA-1B-29-80', 'keluar', '2020-10-14 23:10:55'),
+(264, '04-34-1F-CA-1B-29-80', 'hadir', '2020-10-15 13:13:23'),
+(265, '04-64-6D-6A-E5-5B-80', 'daftar', '2020-10-15 13:34:45'),
+(266, '04-64-6D-6A-E5-5B-80', 'hadir', '2020-10-15 13:34:54'),
+(267, '04-63-76-CA-E5-5B-80', 'hadir', '2020-10-15 19:14:35'),
+(268, '04-64-6D-6A-E5-5B-80', 'keluar', '2020-10-15 20:11:41'),
+(269, '04-63-76-CA-E5-5B-80', 'keluar', '2020-10-15 21:59:48'),
+(270, '04-34-1F-CA-1B-29-80', 'keluar', '2020-10-15 22:29:39'),
+(271, '04-64-6D-6A-E5-5B-80', 'hadir', '2020-10-17 16:57:27'),
+(272, '04-34-1F-CA-1B-29-80', 'hadir', '2020-10-17 17:04:37'),
+(273, '04-64-6D-6A-E5-5B-80', 'keluar', '2020-10-17 20:20:24'),
+(274, '04-34-1F-CA-1B-29-80', 'keluar', '2020-10-17 23:09:40'),
+(275, '04-34-1F-CA-1B-29-80', 'hadir', '2020-10-18 13:54:34'),
+(276, '00-BF-11-A7', 'daftar', '2020-10-18 13:56:42'),
+(277, '00-BF-11-A7', 'hadir', '2020-10-18 13:56:54'),
+(278, '00-BF-11-A7', 'keluar', '2020-10-18 14:20:47'),
+(279, '04-34-1F-CA-1B-29-80', 'keluar', '2020-10-18 16:11:19'),
+(280, '04-34-1F-CA-1B-29-80', 'hadir', '2020-10-20 11:01:17'),
+(281, '04-34-1F-CA-1B-29-80', 'keluar', '2020-10-21 00:00:40'),
+(282, '19-F8-16-78', 'hadir', '2020-10-21 15:01:36'),
+(283, '04-63-76-CA-E5-5B-80', 'hadir', '2020-10-21 19:45:07'),
+(284, '04-63-76-CA-E5-5B-80', 'keluar', '2020-10-21 21:43:51'),
+(285, '19-F8-16-78', 'keluar', '2020-10-21 23:14:51'),
+(286, '04-34-1F-CA-1B-29-80', 'hadir', '2020-10-22 15:04:03'),
+(287, '04-34-1F-CA-1B-29-80', 'keluar', '2020-10-22 19:35:13'),
+(288, '04-34-1F-CA-1B-29-80', 'hadir', '2020-10-28 20:47:05'),
+(289, '04-34-1F-CA-1B-29-80', 'keluar', '2020-10-28 22:38:55'),
+(290, '04-34-1F-CA-1B-29-80', 'hadir', '2020-11-06 16:10:55'),
+(291, '04-64-6D-6A-E5-5B-80', 'hadir', '2020-11-06 16:16:42'),
+(292, 'B0-AB-56-A7', 'daftar', '2020-11-06 16:21:42'),
+(293, 'B0-AB-56-A7', 'hadir', '2020-11-06 16:21:53'),
+(294, 'B0-AB-56-A7', 'keluar', '2020-11-06 18:26:19'),
+(295, '04-64-6D-6A-E5-5B-80', 'keluar', '2020-11-06 19:38:04'),
+(296, '04-34-1F-CA-1B-29-80', 'keluar', '2020-11-06 19:43:50'),
+(297, '04-34-1F-CA-1B-29-80', 'hadir', '2020-11-06 19:44:14'),
+(298, '04-34-1F-CA-1B-29-80', 'keluar', '2020-11-06 23:28:09'),
+(299, '19-F8-16-78', 'hadir', '2020-11-08 10:45:50'),
+(300, '19-F8-16-78', 'keluar', '2020-11-08 23:06:20'),
+(301, '00-59-3E-A7', 'hadir', '2020-11-08 23:07:34'),
+(302, '00-59-3E-A7', 'keluar', '2020-11-08 23:07:55'),
+(303, '19-F8-16-78', 'hadir', '2020-11-09 11:40:45'),
+(304, '19-F8-16-78', 'keluar', '2020-11-09 22:24:27'),
+(305, '04-34-1F-CA-1B-29-80', 'hadir', '2020-11-11 17:46:39'),
+(306, '04-34-1F-CA-1B-29-80', 'keluar', '2020-11-11 17:47:55'),
+(307, '04-34-1F-CA-1B-29-80', 'hadir', '2020-12-13 22:03:51'),
+(308, '04-34-1F-CA-1B-29-80', 'keluar', '2020-12-13 22:03:59'),
+(309, '04-3E-62-42-E7-4C-81', 'daftar', '2020-12-13 22:15:43'),
+(310, '04-3E-62-42-E7-4C-81', 'hadir', '2020-12-13 22:16:01'),
+(311, '04-3E-62-42-E7-4C-81', 'keluar', '2020-12-13 22:16:20'),
+(312, '04-3E-62-42-E7-4C-81', 'hadir', '2020-12-13 22:19:35'),
+(313, '04-3E-62-42-E7-4C-81', 'keluar', '2020-12-13 22:20:36'),
+(314, '04-34-1F-CA-1B-29-80', 'hadir', '2020-12-13 22:20:54'),
+(315, '04-34-1F-CA-1B-29-80', 'keluar', '2020-12-13 22:21:19'),
+(316, '04-34-1F-CA-1B-29-80', 'hadir', '2020-12-14 01:19:36'),
+(317, '04-34-1F-CA-1B-29-80', 'keluar', '2020-12-14 01:20:16'),
+(318, '19-F8-16-78', 'hadir', '2020-12-14 01:30:37'),
+(319, '19-F8-16-78', 'keluar', '2020-12-14 01:31:55'),
+(320, '19-F8-16-78', 'hadir', '2020-12-14 01:35:08'),
+(321, '19-F8-16-78', 'keluar', '2020-12-14 01:35:15'),
+(322, '19-F8-16-78', 'hadir', '2020-12-14 02:00:06'),
+(323, '19-F8-16-78', 'keluar', '2020-12-14 02:02:40'),
+(324, '19-F8-16-78', 'hadir', '2020-12-14 02:09:56'),
+(325, '19-F8-16-78', 'keluar', '2020-12-14 02:26:53'),
+(326, '04-34-1F-CA-1B-29-80', 'hadir', '2020-12-14 02:27:07'),
+(327, '19-F8-16-78', 'hadir', '2020-12-14 02:27:31'),
+(328, '19-F8-16-78', 'keluar', '2020-12-14 02:30:47'),
+(329, '19-F8-16-78', 'hadir', '2020-12-14 02:33:24'),
+(330, '19-F8-16-78', 'keluar', '2020-12-14 02:34:47'),
+(331, '19-F8-16-78', 'hadir', '2020-12-14 02:35:47'),
+(332, '19-F8-16-78', 'keluar', '2020-12-14 02:36:13'),
+(333, '19-F8-16-78', 'hadir', '2020-12-14 02:36:20'),
+(334, '19-F8-16-78', 'keluar', '2020-12-14 02:36:34'),
+(335, '19-F8-16-78', 'hadir', '2020-12-14 02:36:43'),
+(336, '19-F8-16-78', 'keluar', '2020-12-14 02:36:51'),
+(337, '19-F8-16-78', 'hadir', '2020-12-14 02:37:01'),
+(338, '19-F8-16-78', 'keluar', '2020-12-14 02:41:03'),
+(339, '19-F8-16-78', 'hadir', '2020-12-14 02:41:06'),
+(340, '04-3E-62-42-E7-4C-81', 'hadir', '2020-12-14 02:41:18'),
+(341, '04-3E-62-42-E7-4C-81', 'keluar', '2020-12-14 02:41:25'),
+(342, '19-F8-16-78', 'keluar', '2020-12-14 02:45:14'),
+(343, '19-F8-16-78', 'hadir', '2020-12-14 02:54:25'),
+(344, '19-F8-16-78', 'keluar', '2020-12-14 02:54:32'),
+(345, '19-F8-16-78', 'hadir', '2020-12-14 02:54:52'),
+(346, '19-F8-16-78', 'keluar', '2020-12-14 02:55:17'),
+(347, '19-F8-16-78', 'hadir', '2020-12-14 02:56:57'),
+(348, '19-F8-16-78', 'keluar', '2020-12-14 02:57:19'),
+(349, '19-F8-16-78', 'hadir', '2020-12-14 02:59:04'),
+(350, '19-F8-16-78', 'keluar', '2020-12-14 02:59:25'),
+(351, '19-F8-16-78', 'hadir', '2020-12-14 02:59:29'),
+(352, '19-F8-16-78', 'keluar', '2020-12-14 02:59:55'),
+(353, '19-F8-16-78', 'hadir', '2020-12-14 03:24:34'),
+(354, '19-F8-16-78', 'keluar', '2020-12-14 03:25:19'),
+(355, '19-F8-16-78', 'hadir', '2020-12-14 03:26:38'),
+(356, '19-F8-16-78', 'keluar', '2020-12-14 03:59:03'),
+(357, '19-F8-16-78', 'hadir', '2020-12-14 04:16:57'),
+(358, '19-F8-16-78', 'keluar', '2020-12-14 04:19:18'),
+(359, '19-F8-16-78', 'hadir', '2020-12-14 04:19:52'),
+(360, '19-F8-16-78', 'keluar', '2020-12-14 04:20:40'),
+(361, '19-F8-16-78', 'hadir', '2020-12-14 04:21:43'),
+(362, '19-F8-16-78', 'keluar', '2020-12-14 04:23:41'),
+(363, '19-F8-16-78', 'hadir', '2020-12-14 04:25:41'),
+(364, '19-F8-16-78', 'keluar', '2020-12-14 04:26:02'),
+(365, '19-F8-16-78', 'hadir', '2020-12-14 04:30:27'),
+(366, '19-F8-16-78', 'keluar', '2020-12-14 04:31:08'),
+(367, '19-F8-16-78', 'hadir', '2020-12-14 04:31:18'),
+(368, '19-F8-16-78', 'keluar', '2020-12-14 04:31:31'),
+(369, '19-F8-16-78', 'hadir', '2020-12-14 05:00:37'),
+(370, '19-F8-16-78', 'keluar', '2020-12-14 05:01:10'),
+(371, '19-F8-16-78', 'hadir', '2020-12-14 05:01:12'),
+(372, '19-F8-16-78', 'keluar', '2020-12-14 05:01:18'),
+(373, '19-F8-16-78', 'hadir', '2020-12-14 05:05:10'),
+(374, '19-F8-16-78', 'keluar', '2020-12-14 05:05:15');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hologramBot_tone`
+--
+
+CREATE TABLE `hologramBot_tone` (
+  `id_ringtone` int(11) NOT NULL,
+  `ringtone_name` text COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `hologramBot_tone`
+--
+
+INSERT INTO `hologramBot_tone` (`id_ringtone`, `ringtone_name`) VALUES
+(1, 'default'),
+(2, 'meme');
 
 -- --------------------------------------------------------
 
@@ -521,6 +689,7 @@ CREATE TABLE `hologramBot_user` (
   `first_name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `last_name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `username` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `ringtone` int(11) NOT NULL DEFAULT 1,
   `timestamp` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -528,16 +697,41 @@ CREATE TABLE `hologramBot_user` (
 -- Dumping data for table `hologramBot_user`
 --
 
-INSERT INTO `hologramBot_user` (`id_acc`, `id_user`, `id_card`, `first_name`, `last_name`, `username`, `timestamp`) VALUES
-(1, '108488036', '19-F8-16-78', 'Muhammad Adnan', 'Surya', 'adnansurya', '1594639856'),
-(2, '644768950', '00-59-3E-A7', 'Laode', 'Fitrah', 'laodefit02', '1594648011'),
-(3, '955866881', '04-22-86-FA-96-2C-80', 'D', '', 'todayis_you', '1594648852'),
-(4, '108488036', '04-34-1F-CA-1B-29-80', 'Muhammad Adnan', 'Surya', 'adnansurya', '1594649246'),
-(5, '916027884', '04-88-57-32-D5-28-80', 'Nrhikma', 'Kadja', 'Nrhikma08', '1595053990'),
-(6, '956827994', '04-63-76-CA-E5-5B-80', 'Lock', 'Heed', 'LockHeed141', '1595065334'),
-(7, '541142383', '70-96-8E-A6', 'Abel', 'Dimas', 'Abeldimas36', '1595684125'),
-(8, '640002329', '04-61 0D-3A-1B-2B-80', 'Michael', '', 'michael_am', '1597058367'),
-(9, '108488036', 'C5-D4-6E-DA', 'Muhammad Adnan', 'Surya', 'adnansurya', '1599191681');
+INSERT INTO `hologramBot_user` (`id_acc`, `id_user`, `id_card`, `first_name`, `last_name`, `username`, `ringtone`, `timestamp`) VALUES
+(1, '108488036', '19-F8-16-78', 'Muhammad Adnan', 'Surya', 'adnansurya', 1, '1594639856'),
+(2, '644768950', '00-59-3E-A7', 'Laode', 'Fitrah', 'laodefit02', 1, '1594648011'),
+(3, '955866881', '04-22-86-FA-96-2C-80', 'Dewi Pratiwi', 'Sasmito', 'todayis_you', 1, '1594648852'),
+(4, '108488036', '04-34-1F-CA-1B-29-80', 'Muhammad Adnan', 'Surya', 'adnansurya', 1, '1594649246'),
+(5, '916027884', '04-88-57-32-D5-28-80', 'Nrhikma', 'Kadja', 'Nrhikma08', 1, '1595053990'),
+(6, '956827994', '04-63-76-CA-E5-5B-80', 'Lock', 'Heed', 'LockHeed141', 1, '1595065334'),
+(7, '541142383', '70-96-8E-A6', 'Abel', 'Dimas', 'Abeldimas36', 1, '1595684125'),
+(8, '640002329', '04-61 0D-3A-1B-2B-80', 'Michael', '', 'michael_am', 1, '1597058367'),
+(10, '663612739', '5B-3E-29-7B', 'Akbar', 'Pekat', 'akbarpekat', 1, '1600320361'),
+(11, '1218948164', '05-8E-39-98-63-A1 00', 'Abdul Malik. S', '', '', 1, '1602601129'),
+(12, '631338800', '04-64-6D-6A-E5-5B-80', 'Ahmad', 'Kardawi', 'Ahmad_User', 1, '1602740085'),
+(13, '1195226552', '00-BF-11-A7', 'Raffi', 'Fadlika', 'mrfadlika', 1, '1603000602'),
+(14, '1475578626', 'B0-AB-56-A7', 'Fadlan', 'Fadil', '', 1, '1604650902'),
+(15, '1468069504', '04-3E-62-42-E7-4C-81', 'Khairullah', 'Miftahul S. Umar', '', 1, '1607868943');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kurs`
+--
+
+CREATE TABLE `kurs` (
+  `id` int(11) NOT NULL,
+  `usd` float NOT NULL,
+  `rp` float NOT NULL,
+  `nama_konversi` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `kurs`
+--
+
+INSERT INTO `kurs` (`id`, `usd`, `rp`, `nama_konversi`) VALUES
+(1, 1, 14787.3, 'usdtorp');
 
 -- --------------------------------------------------------
 
@@ -559,6 +753,44 @@ CREATE TABLE `MR_user` (
 
 INSERT INTO `MR_user` (`id_user`, `username`, `password`, `nickname`, `roles`) VALUES
 (1, 'adnansurya', 'makassar', 'Adnan', 'Owner');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transaksi`
+--
+
+CREATE TABLE `transaksi` (
+  `id_transaksi` int(11) NOT NULL,
+  `kode_perusahaan` text NOT NULL,
+  `kode_badan` text NOT NULL,
+  `nama_perusahaan` varchar(100) NOT NULL,
+  `alamat` text NOT NULL,
+  `provinsi` text NOT NULL,
+  `negara` text NOT NULL,
+  `no_telp` text NOT NULL,
+  `nama_barang` text NOT NULL,
+  `no_pr` text NOT NULL,
+  `tanggal_pr` text NOT NULL,
+  `no_po` varchar(100) NOT NULL,
+  `tanggal_po` text NOT NULL,
+  `owner_estimate_rp` float NOT NULL,
+  `owner_estimate_usd` float NOT NULL,
+  `harga_po_rp` float NOT NULL,
+  `harga_po_usd` float NOT NULL,
+  `harga_perolehan_rp` float NOT NULL,
+  `harga_perolehan_usd` float NOT NULL,
+  `kuantum` float NOT NULL,
+  `satuan` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `transaksi`
+--
+
+INSERT INTO `transaksi` (`id_transaksi`, `kode_perusahaan`, `kode_badan`, `nama_perusahaan`, `alamat`, `provinsi`, `negara`, `no_telp`, `nama_barang`, `no_pr`, `tanggal_pr`, `no_po`, `tanggal_po`, `owner_estimate_rp`, `owner_estimate_usd`, `harga_po_rp`, `harga_po_usd`, `harga_perolehan_rp`, `harga_perolehan_usd`, `kuantum`, `satuan`) VALUES
+(1, 'pt', 'asd', 'asdNamaPerusahaan', 'asd', 'asd', 'asd', 'asd', 'asd', 'asd', '2020-09-03', '0', '2020-09-03', 73936.5, 5, 2, 0.000135251, 14787.3, 1, 0, '0'),
+(2, 'BUKK', 'CV (Commditaire Vennotschap)', 'Maju Bersama', 'Jalan Cahaya Gading No. 27', 'Kalimantan Barat', 'Indonesia', '08144775566', 'Pulpen Snowman', '1411', '2020-09-04', '7824', '2020-09-08', 100000, 6.76256, 59149.2, 4, 1500000, 101.438, 6788.45, 'liter');
 
 --
 -- Indexes for dumped tables
@@ -602,16 +834,34 @@ ALTER TABLE `hologramBot_log`
   ADD PRIMARY KEY (`id_log`);
 
 --
+-- Indexes for table `hologramBot_tone`
+--
+ALTER TABLE `hologramBot_tone`
+  ADD PRIMARY KEY (`id_ringtone`);
+
+--
 -- Indexes for table `hologramBot_user`
 --
 ALTER TABLE `hologramBot_user`
   ADD PRIMARY KEY (`id_acc`);
 
 --
+-- Indexes for table `kurs`
+--
+ALTER TABLE `kurs`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `MR_user`
 --
 ALTER TABLE `MR_user`
   ADD PRIMARY KEY (`id_user`);
+
+--
+-- Indexes for table `transaksi`
+--
+ALTER TABLE `transaksi`
+  ADD PRIMARY KEY (`id_transaksi`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -627,7 +877,7 @@ ALTER TABLE `AdoraBot_device`
 -- AUTO_INCREMENT for table `AdoraBot_message`
 --
 ALTER TABLE `AdoraBot_message`
-  MODIFY `id_msg` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id_msg` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT for table `AdoraBot_register`
@@ -651,19 +901,37 @@ ALTER TABLE `AdoraBot_user`
 -- AUTO_INCREMENT for table `hologramBot_log`
 --
 ALTER TABLE `hologramBot_log`
-  MODIFY `id_log` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=234;
+  MODIFY `id_log` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=375;
+
+--
+-- AUTO_INCREMENT for table `hologramBot_tone`
+--
+ALTER TABLE `hologramBot_tone`
+  MODIFY `id_ringtone` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `hologramBot_user`
 --
 ALTER TABLE `hologramBot_user`
-  MODIFY `id_acc` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_acc` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `kurs`
+--
+ALTER TABLE `kurs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `MR_user`
 --
 ALTER TABLE `MR_user`
   MODIFY `id_user` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `transaksi`
+--
+ALTER TABLE `transaksi`
+  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
