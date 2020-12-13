@@ -52,25 +52,30 @@ def sendPost(card_id):
     
 
 ser = serial.Serial('COM5', 9600)
+try:
+    while True:
+        line = ser.readline()
+        clean_line = line.strip().decode( "utf-8" )
+        if(line != ''):
+            uid = str(clean_line).replace(':','-')
+            print('ID : ' + uid)
 
-while True:
-    line = ser.readline()
-    clean_line = line.strip().decode( "utf-8" )
-    if(line != ''):
-        uid = str(clean_line).replace(':','-')
-        print('ID : ' + uid)
-
-        koneksi = False
-        
-        
-        try :
-            responText = sendPost(uid)
-            koneksi = True
-        except :
             koneksi = False
+            
+            
+            try :
+                responText = sendPost(uid)
+                koneksi = True
+            except :
+                koneksi = False
 
-        if koneksi:
-            loadJson(responText)
-        else:
-            playRingtone('gagal', 'default')
+            if koneksi:
+                loadJson(responText)
+            else:
+                playRingtone('gagal', 'default')
+                
+except KeyboardInterrupt:
 
+    print("Press Ctrl-C to terminate while statement")
+
+    pass
