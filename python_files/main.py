@@ -26,7 +26,13 @@ def loadJson(teks):
     print(result)
     print(uid)
     print(tone)
-    playRingtone(result, tone)
+    
+    if(result != 'unknown'):
+        playRingtone(result, tone)
+    else:
+        playRingtone(result, 'default')
+    
+        
     
 
     
@@ -67,3 +73,4 @@ while True:
             loadJson(responText)
         else:
             playRingtone('gagal', 'default')
+
