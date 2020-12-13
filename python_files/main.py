@@ -8,8 +8,8 @@ import os
 
 
 def playRingtone(resultStr, toneStr):
-    path = os.getcwd()
-    mp3string ='tone' + "\\" + toneStr + "\\" + resultStr + '.mp3'
+    path =  os.path.dirname(__file__)
+    mp3string =path + "\\" + 'tone' + "\\" + toneStr + "\\" + resultStr + '.mp3'
     playsound(mp3string)
 
 def loadJson(teks):
