@@ -1,6 +1,21 @@
 import serial
 import urllib.request as req
 import urllib.parse as par
+import json 
+
+def loadJson(teks):
+    jsonObj = json.loads(teks)
+    result = jsonObj['result']
+    msg = jsonObj['msg']
+    uid = jsonObj['data']['uid']
+    tone = jsonObj['data']['tone']['ringtone_name']
+    
+    print(uid)
+    print(tone)
+    
+
+    
+    
 
 def sendPost(card_id):
     apiurl = 'https://betaku.000webhostapp.com/hologramBot/absen.php'
@@ -10,7 +25,9 @@ def sendPost(card_id):
         }
     data = bytes(par.urlencode(data).encode())
     handler = req.urlopen(apiurl,data)
-    print(handler.read().decode('utf-8'))
+    resText = handler.read().decode('utf-8')
+    print(resText)
+    loadJson(resText)
 
 ser = serial.Serial('COM5', 9600)
 
