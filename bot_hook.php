@@ -104,6 +104,71 @@
         }
         
         
+    }elseif(getComm($message, '/ringtone')){            
+        if($chat_id !== $user_id){
+            if($chat_id === $hologram_id || getComm($message, '/ringtone@hologrambeso_bot')){
+                $pesan = 'Untuk mengganti ringtone, chat (PC) saya dengan format:'.PHP_EOL.PHP_EOL.
+                '/ringtone <id_ringtone>' .PHP_EOL.PHP_EOL;
+                $check = mysqli_query($conn,"SELECT * FROM hologramBot_tone");
+                if (mysqli_num_rows($check) > 0) {
+                    $pesan = $pesan.'ID Ringtone Pack :'. PHP_EOL ;
+                    while($row = mysqli_fetch_assoc($check)) {    
+                        $satu =  $row['id_ringtone'] .'. '. $row['ringtone_name']. PHP_EOL ;
+                        $pesan = $pesan.$satu; 
+                    }
+                }else {
+                    $pesan = 'Pack Ringtone Kosong';
+                }
+            }else{
+                $pesan = 'Gunakan HologramBot hanya pada Grup HOLOGRAM!';
+            }            
+        }else{
+           
+            $ringtone_id = substr($message, 10);
+            if($ringtone_id == ''){
+                $pesan = 'Id Kartu tidak valid!';
+            }else{
+               
+                $check_ringtone= mysqli_query($conn,"SELECT * from hologramBot_tone WHERE id_ringtone = '".$ringtone_id."'");
+                if (mysqli_num_rows($check_ringtone) > 0) {
+                    //id dikenali   
+                    $sql = "UPDATE hologramBot_user SET ringtone = '".$ringtone_id."' WHERE id_user='".$user_id."'";
+                    if (!mysqli_query($conn,$sql)){            
+                        $pesan = 'Terjadi Kesalahan perubahan ringtone!';
+        
+                    }else{
+                        $pesan = 'Ringtone berhasil diubah!';
+                        
+                    }                     
+                  
+                }else{
+                    //id baru
+                    $pesan = 'ID Ringtone tak dikenali!';
+                    
+                }
+            }
+            
+            
+        }
+        
+        
+    }elseif(getComm($message, '/add_tone')){  
+        $subcomm = substr($message, 10);
+        if($user_id != $adnan_id){
+            $pesan = 'Maaf kak, command itu hanya untuk admin :)';
+        }else{
+           
+            $ringtone_name = $subcomm;
+            $sql = "INSERT INTO hologramBot_tone(ringtone_name) VALUES ('$ringtone_name')";
+            if (!mysqli_query($conn,$sql)){            
+                $pesan = 'Terjadi Kesalahan pendaftaran ringtone!';
+
+            }else{
+               
+                $pesan = 'Pendaftaran ringtone berhasil!';
+            }
+            
+        }        
     }elseif(getComm($message, '/admin')){  
         $subcomm = substr($message, 7);
         if($user_id != $adnan_id){
