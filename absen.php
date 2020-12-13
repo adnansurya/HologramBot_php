@@ -9,6 +9,7 @@
     $sql = "";
     $status = "";
     $identity = "";
+    $tone_data = "unknown";
     $response = "";
     $resObj = new \stdClass();
     $resObj -> result = "";
@@ -22,7 +23,14 @@
             if (mysqli_num_rows($check_user) > 0) {
                 //id dikenali
                 while($row = mysqli_fetch_assoc($check_user)) {
-                    $identity = $row['first_name']." ".$row['last_name']." (@".$row['username'].")";            
+                    $identity = $row['first_name']." ".$row['last_name']." (@".$row['username'].")";  
+                    $get_tone = mysqli_query($conn,"SELECT * FROM hologramBot_tone WHERE id_ringtone=". $row['ringtone']);
+                    if($get_tone){
+                        $tone_data = mysqli_fetch_assoc($get_tone);   
+                    }else{
+                        $tone_data = "unknown";
+                    }
+                          
                 }
     
                 $check_hadir = mysqli_query($conn,"SELECT * FROM hologramBot_hadir WHERE id_card='" .$card_id."'");
@@ -75,7 +83,10 @@
         sendMessage($chat_id,  $pesan, $token);
         $resObj -> result = $response;
         $resObj -> msg = $pesan;
-        $resObj -> data = $_POST['card'];
+        $dataObj = new \stdClass();
+        $dataObj -> uid = $_POST['card'];
+        $dataObj -> tone = $tone_data;
+        $resObj -> data = $dataObj;
         echo json_encode($resObj);
         
 
