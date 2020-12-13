@@ -10,6 +10,8 @@
     $status = "";
     $identity = "";
     $response = "";
+    $resObj = new \stdClass();
+    $resObj -> result = "";
 
    
     if(isset($_POST['card'])) {
@@ -71,7 +73,10 @@
        
         
         sendMessage($chat_id,  $pesan, $token);
-        echo $response;
+        $resObj -> result = $response;
+        $resObj -> msg = $pesan;
+        $resObj -> data = $_POST['card'];
+        echo json_encode($resObj);
         
 
         if($status != "" && $card_id != ""){
@@ -79,7 +84,7 @@
             if (!mysqli_query($conn,$sql)){            
                 $pesan = 'Terjadi Kesalahan penulisan log';
                 sendMessage($chat_id, $pesan, $token);
-                echo $pesan;
+                echo json_encode($resObj);
             }
         }
 
