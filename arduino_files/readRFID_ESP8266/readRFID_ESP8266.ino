@@ -20,8 +20,8 @@ void setup()
   Serial.begin(9600);   // Initiate a serial communication
   SPI.begin();      // Initiate  SPI bus
   mfrc522.PCD_Init();   // Initiate MFRC522
-  Serial.println("Approximate your card to the reader...");
-  Serial.println();
+//  Serial.println("Approximate your card to the reader...");
+//  Serial.println();
 
 }
 void loop() 
@@ -37,7 +37,7 @@ void loop()
     return;
   }
   //Show UID on serial monitor
-  Serial.print("UID tag :");
+//  Serial.print("UID tag :");
   String content= "";
   String uid = "";
   byte letter;
@@ -52,16 +52,5 @@ void loop()
   content.toUpperCase();
   uid = content.substring(1);
   Serial.println(uid);
-  Serial.print("Message : ");
-  if (uid == "BD 31 15 2B") //change here the UID of the card/cards that you want to give access
-  {
-    Serial.println("Authorized access");
-    Serial.println();
-    delay(3000);
-  }
- 
- else   {
-    Serial.println(" Access denied");
-    delay(3000);
-  }
+ delay(1000);
 } 
