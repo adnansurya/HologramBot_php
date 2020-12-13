@@ -64,9 +64,10 @@ def sendPost(card_id):
     
 
 if(selectedPort == ""):
+    print("ARDUINO TIDAK TERDETEKSI")
     exit()
 
-ser = serial.Serial('COM5', 9600)
+ser = serial.Serial(selectedPort, 9600)
 try:
     while True:
         line = ser.readline()
