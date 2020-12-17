@@ -15,8 +15,8 @@
     $resObj -> result = "";
 
    
-    if(isset($_POST['card'])) {
-        $card_id = $_POST['card'];
+    if(isset($_GET['card'])) {
+        $card_id = $_GET['card'];
         $check_user = mysqli_query($conn,"SELECT * FROM hologramBot_user WHERE id_card='" .$card_id."' order by id_acc asc limit 1");
         $check_hadir = mysqli_query($conn,"SELECT * FROM hologramBot_hadir WHERE id_card='" .$card_id."'");
         if($check_user){
@@ -84,7 +84,7 @@
         $resObj -> result = $response;
         $resObj -> msg = $pesan;
         $dataObj = new \stdClass();
-        $dataObj -> uid = $_POST['card'];
+        $dataObj -> uid = $_GET['card'];
         $dataObj -> tone = $tone_data;
         $resObj -> data = $dataObj;
         echo json_encode($resObj);
