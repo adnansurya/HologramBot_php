@@ -10,8 +10,8 @@
 #define SS_PIN 21
 #define RST_PIN 34
 
-#define ledMerah 12
-#define ledKuning 14
+#define ledKuning 12
+#define ledMerah 14
 #define ledHijau 27
 
 MFRC522 mfrc522(SS_PIN, RST_PIN);  
@@ -109,6 +109,14 @@ void loop() {
     toneName = "unknown";  
   }
 
+  if(hasil == "HADIR"){
+    digitalWrite(ledHijau, HIGH);  
+  }else if(hasil == "KELUAR"){
+    digitalWrite(ledKuning, HIGH);
+  }else if(hasil == "UNKNOWN"){
+    digitalWrite(ledMerah, HIGH);
+  }
+
   Serial.println(hasil + "/" + toneName);
 
   
@@ -135,9 +143,15 @@ String httpGETRequest(String serverName) {
   }
   else {
     Serial.print("Error code: ");
-    Serial.println(httpResponseCode);
-    digitalWrite(ledMerah, HIGH);
-    delay(3000);
+    Serial.println(httpResponseCode);   
+    for(int i=0; i<3; i++){
+      digitalWrite(ledMerah, HIGH);
+      delay(500);
+      digitalWrite(ledMerah, LOW);
+      delay(500);  
+    } 
+    
+    
     
   }
   // Free resources
