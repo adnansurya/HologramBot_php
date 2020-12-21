@@ -2,6 +2,7 @@
 #include <WiFi.h>
 #include <HTTPClient.h>
 #include <MFRC522.h>
+#include <Arduino_JSON.h>
 
 #define SS_PIN 21
 #define RST_PIN 34
@@ -17,6 +18,7 @@ const char* password = "untukapa?";
 
 //Your Domain name with URL path or IP address with path
 const char* serverName = "http://betaku.000webhostapp.com/hologramBot/absen.php?card=";
+
 
 
 
@@ -88,10 +90,34 @@ void loop() {
  
   responseText =  httpGETRequest(serverName + uid);
   Serial.println(responseText);
- delay(1000);
-  
-}
 
+  JSONVar myObject = JSON.parse(responseText);
+ 
+
+  // JSON.typeof(jsonVar) can be used to get the type of the var
+  if (JSON.typeof(myObject) == "undefined") {
+    Serial.println("Parsing input failed!");
+    return;
+  }
+    JSONVar result = myObject["result"];
+    String resultRes;
+    result.printTo(resultRes);
+  
+  Serial.print("JSON object = ");
+  Serial.println(myObject);
+   delay(1000);
+  
+   Serial.print("JSON result = ");
+  Serial.println(resultRes);
+  if(resultRes == "HADIR"){
+    digitalWrite(ledHijau, HIGH);      
+  }else if(resultRes == "KELUAR"){
+   digitalWrite(ledKuning, HIGH);     
+  }else{
+   digitalWrite(ledMerah, HIGH);   
+  }
+  delay(3000);
+}
 String httpGETRequest(String serverName) {
   HTTPClient http;
     
@@ -111,6 +137,9 @@ String httpGETRequest(String serverName) {
   else {
     Serial.print("Error code: ");
     Serial.println(httpResponseCode);
+    digitalWrite(ledMerah, HIGH);
+    delay(3000);
+    
   }
   // Free resources
   http.end();
