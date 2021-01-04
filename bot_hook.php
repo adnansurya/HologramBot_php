@@ -217,25 +217,27 @@
             
         }        
     }else{
-        if($chat_id == $hologram_id){
-            $new_msg = str_replace(" ", "%' OR kata LIKE '%", trim($message." "), $jumlah);
-            $sql_toxic = "SELECT * FROM hologramBot_toxic WHERE kata LIKE '%".$new_msg."%'";
-            $check_toxic = mysqli_query($conn,$sql_toxic);
-            if($check_toxic){
-                if (mysqli_num_rows($check_toxic) > 0) {
-                    $row = mysqli_fetch_assoc($check_toxic);
-                    $kata_kunci = $row['kata'];
-                    $pesan = 'Kata kotor / toxic terdeteksi';
-                    $sql = "INSERT INTO hologramBot_toxicLog(id_user,kata_kunci,waktu) VALUES ('$user_id','$kata_kunci','$waktu')";
+        
+        // if($chat_id == $hologram_id){
+            // $chat_id = $adnan_id;
+            // $new_msg = str_replace(" ", "%' OR kata LIKE '%", trim($message." "), $jumlah);
+            // $sql_toxic = "SELECT * FROM hologramBot_toxic WHERE kata LIKE '%".$new_msg."%'";
+            // $check_toxic = mysqli_query($conn,$sql_toxic);
+            // if($check_toxic){
+            //     if (mysqli_num_rows($check_toxic) > 0) {
+            //         $row = mysqli_fetch_assoc($check_toxic);
+            //         $kata_kunci = $row['kata'];
+            //         $pesan = 'Kata kotor / toxic terdeteksi';
+            //         $sql = "INSERT INTO hologramBot_toxicLog(id_user,kata_kunci,waktu) VALUES ('$user_id','$kata_kunci','$waktu')";
                             
-                    if (!mysqli_query($conn,$sql)){            
-                        $pesan = 'Terjadi Kesalahan pada penulisan log database toxic';        
-                    }
-                }
-            }else{
-                $pesan = 'Error Check Toxic';
-            }
-        }
+            //         if (!mysqli_query($conn,$sql)){            
+            //             $pesan = 'Terjadi Kesalahan pada penulisan log database toxic';        
+            //         }
+            //     }
+            // }else{
+            //     $pesan = 'Error Check Toxic';
+            // }
+        // }
         
     }
 
