@@ -181,6 +181,18 @@
             sendMessage($send_id, $pesan, $token);
             
         }        
+    }elseif(getComm($message, '/post')){  
+        $subcomm = substr($message, 6);
+        if($user_id == $adnan_id || $user_id == $akbar_id){
+            $msg_data = $subcomm;
+            $pesan =  $msg_data;
+            $send_id = $hologram_id;
+            sendMessage($send_id, $pesan, $token);
+        }else{
+            $pesan = 'Maaf kak, command itu hanya untuk editor :)';
+           
+            
+        }        
     }
 
     sendMessage($chat_id, $pesan, $token);
