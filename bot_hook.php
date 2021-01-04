@@ -185,7 +185,7 @@
         $subcomm = substr($message, 6);
         if($user_id == $adnan_id || $user_id == $akbar_id){
             $msg_data = $subcomm;
-            $pesan =  $msg_data;
+            $pesan =  $msg_data.PHP_EOL.PHP_EOL."Author : @".$username;
             $send_id = $hologram_id;
             sendMessage($send_id, $pesan, $token);
         }else{
