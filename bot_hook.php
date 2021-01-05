@@ -233,7 +233,7 @@
                     $pesan = 'Kata kotor / toxic terdeteksi';
                     $sql = "INSERT INTO hologramBot_toxicLog(id_user,kata_kunci,kalimat,waktu) VALUES ('$user_id','$kata_kunci','$message','$waktu')";
                     $pesan = $getter;
-                    // deleteMessage($chat_id, $message_id, $token);       
+                    deleteMessage($chat_id, $message_id, $token);       
                     if (!mysqli_query($conn,$sql)){            
                         $pesan = 'Terjadi Kesalahan pada penulisan log database toxic';        
                     }
