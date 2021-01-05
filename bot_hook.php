@@ -185,6 +185,37 @@
             sendMessage($send_id, $pesan, $token);
             
         }        
+    }elseif(getComm($message, '/usir')){  
+    
+        if($user_id != $adnan_id){
+            $pesan = 'Maaf kak, command itu hanya untuk admin :)';
+        }else{
+            $check = mysqli_query($conn,"SELECT hologramBot_hadir.*, hologramBot_user.first_name, hologramBot_user.last_name FROM hologramBot_hadir,hologramBot_user WHERE hologramBot_user.id_card = hologramBot_hadir.id_card");
+            if (mysqli_num_rows($check) > 0) {
+                $pesan = 'Mengusir paksa orang-orang ini :'.PHP_EOL .PHP_EOL;
+                while($row = mysqli_fetch_assoc($check)) {
+                    $member_id = $row['id_card'];
+                    $sql = "DELETE FROM hologramBot_hadir WHERE id_card='" .$member_id. "'";
+                    if (!mysqli_query($conn,$sql)){            
+                        $pesan = 'Terjadi Kesalahan pada database kehadiran';  
+                    }
+
+                    $satu = '- '.$row['first_name']." ".$row['last_name'].PHP_EOL;                     
+                    $pesan = $pesan.$satu; 
+                    $status = "keluar";
+
+                    $sql = "INSERT INTO hologramBot_log(id_card,status,waktu) VALUES ('$member_id','$status','$waktu')";
+                    if (!mysqli_query($conn,$sql)){            
+                        $pesan = 'Terjadi Kesalahan penulisan log';
+                        sendMessage($chat_id, $pesan, $token);                       
+                    }
+                    
+                }
+            }else {
+                $pesan = 'Gagal mengusir, tidak ada orang di Ambeso.';
+            }
+            
+        }        
     }elseif(getComm($message, '/post')){  
         $subcomm = substr($message, 6);
         if($user_id == $adnan_id || $user_id == $akbar_id){
