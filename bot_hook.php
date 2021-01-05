@@ -219,7 +219,7 @@
         }        
     }else{
         
-        if($chat_id == $hologram_id && $sticker == ""){
+        if($chat_id == $hologram_id && $message != ""){
            
             $new_msg = str_replace(" ", "%' OR kata LIKE '%", trim($message." "), $jumlah);
             $sql_toxic = "SELECT * FROM hologramBot_toxic WHERE kata LIKE '%".$new_msg."%'";
@@ -229,7 +229,7 @@
                     $row = mysqli_fetch_assoc($check_toxic);
                     $kata_kunci = $row['kata'];
                     $pesan = 'Kata kotor / toxic terdeteksi. ID : ' . $message_id.PHP_EOL. 
-                    " Chat Id : ".$chat_id.PHP_EOL."Stiker : ".$sticker;
+                    " Chat Id : ".$chat_id;
                     $pesan = 'Kata kotor / toxic terdeteksi';
                     $sql = "INSERT INTO hologramBot_toxicLog(id_user,kata_kunci,kalimat,waktu) VALUES ('$user_id','$kata_kunci','$message','$waktu')";
                     $pesan = $getter;
