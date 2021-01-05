@@ -251,11 +251,12 @@
                 if (mysqli_num_rows($check_toxic) > 0) {
                     $row = mysqli_fetch_assoc($check_toxic);
                     $kata_kunci = $row['kata'];   
-                    $pesan = 'Kata kotor / toxic terdeteksi';
+                    
                     $sql = "INSERT INTO hologramBot_toxicLog(id_user,kata_kunci,kalimat,waktu) VALUES ('$user_id','$kata_kunci','$message','$waktu')";
                     
                     // $pesan = $getter;
                     // $pesan = $sql_toxic;
+                    $pesan = "";
                     
                     deleteMessage($chat_id, $message_id, $token);       
                     if (!mysqli_query($conn,$sql)){            
@@ -268,8 +269,10 @@
         }
         
     }
-
-    sendMessage($chat_id, $pesan, $token);
+    if($pesan != ""){
+        sendMessage($chat_id, $pesan, $token);
+    }
+    
 
     if($status != "" && $card_id != ""){
         $sql = "INSERT INTO hologramBot_log(id_card,status,waktu) VALUES ('$card_id','$status','$waktu')";
