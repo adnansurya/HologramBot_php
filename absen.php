@@ -43,7 +43,7 @@
                             $pesan = 'Terjadi Kesalahan pada database kehadiran';
                             $response = 'ERROR';
                         }else{
-                            $pesan = $identity." telah meninggalkan Ambeso.";
+                            $pesan = "Sampai jumpa lagi, ". $identity." !";
                             $response = 'KELUAR';
                         }
                         $status = "keluar";
@@ -56,7 +56,7 @@
                             $pesan = 'Terjadi Kesalahan pada database kehadiran';
                             $response = 'ERROR';
                         }else{
-                            $pesan = $identity." sedang berada di Ambeso.";
+                            $pesan = "Selamat datang, ".$identity." !";
                             $response = 'HADIR';
                         }
                         $status = "hadir";
@@ -71,7 +71,7 @@
                 
                 sendMessage($adnan_id,  "Id Kartu : ", $token);
                 sendMessage($adnan_id,  $card_id, $token);
-                $pesan = "Orang tak dikenal sedang berada di Ambeso.";
+                $pesan = "Ada orang baru di sini, siapa ya?";
                 $response = 'UNKNOWN';
             }
 

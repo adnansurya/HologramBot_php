@@ -49,7 +49,7 @@
     if(getComm($message, '/cek')){           
         $check = mysqli_query($conn,"SELECT hologramBot_user.username, hologramBot_user.first_name, hologramBot_user.last_name, hologramBot_hadir.waktu FROM hologramBot_hadir INNER JOIN hologramBot_user ON hologramBot_user.id_card = hologramBot_hadir.id_card");
         if (mysqli_num_rows($check) > 0) {
-            $pesan = 'Anggota yang hadir saat ini :'.PHP_EOL .PHP_EOL;
+            $pesan = 'Sini, nongkrong bareng :'.PHP_EOL .PHP_EOL;
             while($row = mysqli_fetch_assoc($check)) {
                 $nomor++;
                 $waktu_split = explode(" ", $row['waktu']);                                
@@ -233,11 +233,12 @@
         if($user_id != $adnan_id){
             $pesan = 'Maaf kak, command itu hanya untuk admin :)';
         }else{
-           
-            $msg_data = $subcomm;
+            $msg_data = explode(" ", $subcomm);
+            $kata = $msg_data[0];
+            $toleransi = $msg_data[1];
            
 
-            $sql = "INSERT INTO hologramBot_toxic(kata) VALUES ('$msg_data')";
+            $sql = "INSERT INTO hologramBot_toxic(kata, toleransi) VALUES ('$kata','$toleransi')";
                         
             if (!mysqli_query($conn,$sql)){            
                 $pesan = 'Terjadi Kesalahan pada database toxic';        
@@ -250,8 +251,6 @@
         }        
     }elseif(getComm($message, '/list_toxic')){  
        
-           
-
         $check = mysqli_query($conn,"SELECT * FROM hologramBot_toxic");
         if (mysqli_num_rows($check) > 0) {
             $pesan = 'List Kata Terlarang :'.PHP_EOL .PHP_EOL;
@@ -290,7 +289,7 @@
                     // $pesan = $sql_toxic;
                     $pesan = "";
                     if($toleransi == 0){
-                        $pesan = "Pesan dihapus karena bersifat terlalu toxic atau kasar.";
+                        $pesan = "Pesan dihapus karena bersifat terlalu toxic atau kasar";
                         deleteMessage($chat_id, $message_id, $token);  
                     }else{
                         $pesan = "Sebaiknya gunakan kata yang lebih sopan ya";
