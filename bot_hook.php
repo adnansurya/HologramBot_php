@@ -227,12 +227,10 @@
             if($check_toxic){
                 if (mysqli_num_rows($check_toxic) > 0) {
                     $row = mysqli_fetch_assoc($check_toxic);
-                    $kata_kunci = $row['kata'];
-                    $pesan = 'Kata kotor / toxic terdeteksi. ID : ' . $message_id.PHP_EOL. 
-                    " Chat Id : ".$chat_id;
+                    $kata_kunci = $row['kata'];   
                     $pesan = 'Kata kotor / toxic terdeteksi';
                     $sql = "INSERT INTO hologramBot_toxicLog(id_user,kata_kunci,kalimat,waktu) VALUES ('$user_id','$kata_kunci','$message','$waktu')";
-                    $pesan = $getter;
+                    // $pesan = $getter;
                     deleteMessage($chat_id, $message_id, $token);       
                     if (!mysqli_query($conn,$sql)){            
                         $pesan = 'Terjadi Kesalahan pada penulisan log database toxic';        
