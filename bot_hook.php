@@ -10,8 +10,9 @@
     $update = json_decode($getter, TRUE);
 
     $chat_id = $update["message"]["chat"]["id"];
-   
+    $message_id = $update["message"]["message_id"];
     $message = $update["message"]["text"];
+    $sticker = $update["message"]["sticker"];
     $username = $update["message"]["from"]["username"];
     $user_id = $update["message"]["from"]["id"];
     $first_name = $update["message"]["from"]["first_name"];
@@ -218,26 +219,28 @@
         }        
     }else{
         
-        // if($chat_id == $hologram_id){
-            // $chat_id = $adnan_id;
-            // $new_msg = str_replace(" ", "%' OR kata LIKE '%", trim($message." "), $jumlah);
-            // $sql_toxic = "SELECT * FROM hologramBot_toxic WHERE kata LIKE '%".$new_msg."%'";
-            // $check_toxic = mysqli_query($conn,$sql_toxic);
-            // if($check_toxic){
-            //     if (mysqli_num_rows($check_toxic) > 0) {
-            //         $row = mysqli_fetch_assoc($check_toxic);
-            //         $kata_kunci = $row['kata'];
-            //         $pesan = 'Kata kotor / toxic terdeteksi';
-            //         $sql = "INSERT INTO hologramBot_toxicLog(id_user,kata_kunci,waktu) VALUES ('$user_id','$kata_kunci','$waktu')";
+        if($chat_id == $hologram_id && $sticker == ""){
+           
+            $new_msg = str_replace(" ", "%' OR kata LIKE '%", trim($message." "), $jumlah);
+            $sql_toxic = "SELECT * FROM hologramBot_toxic WHERE kata LIKE '%".$new_msg."%'";
+            $check_toxic = mysqli_query($conn,$sql_toxic);
+            if($check_toxic){
+                if (mysqli_num_rows($check_toxic) > 0) {
+                    $row = mysqli_fetch_assoc($check_toxic);
+                    $kata_kunci = $row['kata'];
+                    $pesan = 'Kata kotor / toxic terdeteksi. ID : ' . $message_id.PHP_EOL. 
+                    " Chat Id : ".$chat_id.PHP_EOL."Stiker : ".$sticker;
+                    $pesan = 'Kata kotor / toxic terdeteksi';
+                    $sql = "INSERT INTO hologramBot_toxicLog(id_user,kata_kunci,kalimat,waktu) VALUES ('$user_id','$kata_kunci','$message','$waktu')";
                             
-            //         if (!mysqli_query($conn,$sql)){            
-            //             $pesan = 'Terjadi Kesalahan pada penulisan log database toxic';        
-            //         }
-            //     }
-            // }else{
-            //     $pesan = 'Error Check Toxic';
-            // }
-        // }
+                    if (!mysqli_query($conn,$sql)){            
+                        $pesan = 'Terjadi Kesalahan pada penulisan log database toxic';        
+                    }
+                }
+            }else{
+                $pesan = 'Error Check Toxic';
+            }
+        }
         
     }
 
