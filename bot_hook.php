@@ -217,6 +217,27 @@
            
             
         }        
+    }elseif(getComm($message, '/list_toxic')){  
+       
+           
+
+        $check = mysqli_query($conn,"SELECT * FROM hologramBot_toxic");
+        if (mysqli_num_rows($check) > 0) {
+            $pesan = 'List Kata Terlarang :'.PHP_EOL .PHP_EOL;
+            while($row = mysqli_fetch_assoc($check)) { 
+                
+                $kata_kotor = $row['kata'];
+                $kata_kotor_len = strlen($kata_kotor);
+                $one_kata =  substr_replace($kata_kotor,str_repeat("*",$kata_kotor_len-2), 1, -1) ;      
+                $satu =  $row['id']. '. '. $one_kata .PHP_EOL ;
+                $pesan = $pesan.$satu; 
+            }
+            // $pesan = $pesan.PHP_EOL. 'Selengkapnya :'.PHP_EOL.'https://betaku.000webhostapp.com/hologramBot/';
+        }else {
+            $pesan = 'Kata Terlarang Kosong';
+        }
+                                  
+              
     }else{
         
         if($chat_id == $hologram_id && $message != ""){
