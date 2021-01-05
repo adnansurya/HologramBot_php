@@ -237,7 +237,7 @@
             $kata = $msg_data[0];
             $toleransi = $msg_data[1];
            
-
+            deleteMessage($chat_id, $message_id, $token);  
             $sql = "INSERT INTO hologramBot_toxic(kata, toleransi) VALUES ('$kata','$toleransi')";
                         
             if (!mysqli_query($conn,$sql)){            
