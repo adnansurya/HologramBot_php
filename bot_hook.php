@@ -221,8 +221,8 @@
         
         if($chat_id == $hologram_id && $message != ""){
            
-            $new_msg = str_replace(" ", "%' OR kata LIKE '%", trim($message." "), $jumlah);
-            $sql_toxic = "SELECT * FROM hologramBot_toxic WHERE kata LIKE '%".$new_msg."%'";
+            $new_msg = str_replace(" ", "' OR kata LIKE '", trim($message." "), $jumlah);
+            $sql_toxic = "SELECT * FROM hologramBot_toxic WHERE kata LIKE '".$new_msg."'";
             $check_toxic = mysqli_query($conn,$sql_toxic);
             if($check_toxic){
                 if (mysqli_num_rows($check_toxic) > 0) {
@@ -230,7 +230,9 @@
                     $kata_kunci = $row['kata'];   
                     $pesan = 'Kata kotor / toxic terdeteksi';
                     $sql = "INSERT INTO hologramBot_toxicLog(id_user,kata_kunci,kalimat,waktu) VALUES ('$user_id','$kata_kunci','$message','$waktu')";
+                    
                     // $pesan = $getter;
+                    // $pesan = $sql_toxic;
                     deleteMessage($chat_id, $message_id, $token);       
                     if (!mysqli_query($conn,$sql)){            
                         $pesan = 'Terjadi Kesalahan pada penulisan log database toxic';        
