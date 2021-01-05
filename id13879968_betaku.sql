@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 13, 2020 at 09:12 PM
+-- Generation Time: Jan 05, 2021 at 09:46 AM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.3.23
 
@@ -249,6 +249,134 @@ INSERT INTO `AdoraBot_user` (`id_user`, `acc_id`, `acc_username`, `acc_firstname
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `curahujan`
+--
+
+CREATE TABLE `curahujan` (
+  `id` int(11) NOT NULL,
+  `sensor1` text COLLATE utf8_unicode_ci NOT NULL,
+  `sensor2` text COLLATE utf8_unicode_ci NOT NULL,
+  `sensor3` text COLLATE utf8_unicode_ci NOT NULL,
+  `sensor4` text COLLATE utf8_unicode_ci NOT NULL,
+  `sensor5` text COLLATE utf8_unicode_ci NOT NULL,
+  `waktu` text COLLATE utf8_unicode_ci NOT NULL,
+  `timestamp` text COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `curahujan`
+--
+
+INSERT INTO `curahujan` (`id`, `sensor1`, `sensor2`, `sensor3`, `sensor4`, `sensor5`, `waktu`, `timestamp`) VALUES
+(1, '12', '08', '19', '98', '2020', 'Selasa', '2020-12-22 21:45:02'),
+(2, '99', '99', '99', '99', '99', 'rabu', '2020-12-24 17:29:34'),
+(3, '99', '99', '99', '99', '99', 'rabu', '2020-12-24 17:52:27'),
+(4, '99', '99', '99', '99', '99', 'rabu', '2020-12-24 17:57:42'),
+(5, '99', '99', '99', '99', '99', 'rabu', '2020-12-24 18:02:17'),
+(6, '99', '99', '99', '99', '99', 'rabu', '2020-12-26 15:44:53'),
+(7, '1', '2', '3', '4', '5', 'sabtu', '2020-12-26 16:30:10'),
+(8, '1', '2', '3', '4', '5', 'sabtu', '2020-12-26 16:39:48'),
+(9, '1', '2', '3', '4', '5', 'sabtu', '2020-12-26 17:56:46'),
+(10, '1', '2', '3', '4', '5', 'sabtu', '2020-12-26 17:57:08'),
+(11, '99', '99', '99', '99', '99', 'jumat', '2020-12-26 18:01:37'),
+(12, '99', '99', '99', '99', '99', 'jumat', '2020-12-27 15:32:57'),
+(13, '90', '90', '90', '90', '90', 'senin', '2020-12-27 16:17:57'),
+(14, '4', '5', '6', '7', '8', 'jumat', '2020-12-27 16:44:31'),
+(15, '5', '5', '5', '5', '5', 'kamis', '2020-12-27 16:45:13'),
+(16, '', '', '', '', '', '', '2020-12-27 17:31:18'),
+(17, '', '', '', '', '', '', '2020-12-27 17:32:06'),
+(18, '', '', '', '', '', '', '2020-12-27 17:32:55'),
+(19, '', '', '', '', '', '', '2020-12-27 17:33:44'),
+(20, '', '', '', '', '', '', '2020-12-27 17:34:38'),
+(21, '', '', '', '', '', '', '2020-12-27 17:35:24'),
+(22, '', '', '', '', '', '', '2020-12-27 17:36:13'),
+(23, '', '', '', '', '', '', '2020-12-27 17:37:01'),
+(24, '', '', '', '', '', '', '2020-12-27 17:37:50'),
+(25, '', '', '', '', '', '', '2020-12-27 17:41:54'),
+(26, '', '', '', '', '', '', '2020-12-27 17:42:43'),
+(27, '', '', '', '', '', '', '2020-12-27 17:45:28'),
+(28, '', '', '', '', '', '', '2020-12-27 17:46:33'),
+(29, '3', '4', '5', '6', '7', 'Sabtu,26/12/2020 15:58:26', '2020-12-27 17:50:13'),
+(30, '', '', '', '', '', '', '2020-12-27 17:51:01'),
+(31, '', '', '', '', '', '', '2020-12-27 17:51:49'),
+(32, '', '', '', '', '', '', '2020-12-27 17:52:36'),
+(33, '', '', '', '', '', '', '2020-12-27 17:53:25'),
+(34, '', '', '', '', '', '', '2020-12-27 17:54:13'),
+(35, '', '', '', '', '', '', '2020-12-27 17:57:55'),
+(36, '', '', '', '', '', '', '2020-12-27 17:58:41'),
+(37, '', '', '', '', '', '', '2020-12-27 17:59:40'),
+(38, '', '', '', '', '', '', '2020-12-27 18:02:53'),
+(39, '', '', '', '', '', '', '2020-12-27 18:03:58'),
+(40, '', '', '', '', '', '', '2020-12-27 18:06:07'),
+(41, '', '', '', '', '', '', '2020-12-27 18:10:06'),
+(42, '', '', '', '', '', '', '2020-12-27 18:10:58'),
+(43, '0', '0', '5', '0', '0', 'Sabtu,26/12/2020 16:31:18', '2020-12-27 18:13:43'),
+(44, '0', '0', '5', '0', '0', 'Sabtu,26/12/2020 16:32:18', '2020-12-27 18:14:44'),
+(45, '0', '0', '5', '0', '0', 'Sabtu,26/12/2020 16:33:19', '2020-12-27 18:15:45'),
+(46, '', '', '', '', '', '', '2020-12-27 18:16:50'),
+(47, '', '', '', '', '', '', '2020-12-27 18:17:50'),
+(48, '', '', '', '', '', '', '2020-12-27 18:18:51'),
+(49, '', '', '', '', '', '', '2020-12-27 18:19:52'),
+(50, '', '', '', '', '', '', '2020-12-27 18:20:52'),
+(51, '', '', '', '', '', '', '2020-12-27 18:21:53'),
+(52, '', '', '', '', '', '', '2020-12-27 18:23:08'),
+(53, '', '', '', '', '', '', '2020-12-27 18:23:54'),
+(54, '', '', '', '', '', '', '2020-12-27 18:24:55'),
+(55, '', '', '', '', '', '', '2020-12-27 18:25:55'),
+(56, '', '', '', '', '', '', '2020-12-27 18:26:56'),
+(57, '', '', '', '', '', '', '2020-12-27 18:27:56'),
+(58, '', '', '', '', '', '', '2020-12-27 18:28:57'),
+(59, '', '', '', '', '', '', '2020-12-27 18:36:36'),
+(60, '', '', '', '', '', '', '2020-12-27 18:37:24'),
+(61, '', '', '', '', '', '', '2020-12-27 18:38:12'),
+(62, '', '', '', '', '', '', '2020-12-27 18:39:00'),
+(63, '', '', '', '', '', '', '2020-12-27 18:39:49'),
+(64, '', '', '', '', '', '', '2020-12-27 18:40:43'),
+(65, '', '', '', '', '', '', '2020-12-27 18:41:28'),
+(66, '', '', '', '', '', '', '2020-12-27 18:42:16'),
+(67, '', '', '', '', '', '', '2020-12-27 18:43:05'),
+(68, '', '', '', '', '', '', '2020-12-27 18:43:53'),
+(69, '', '', '', '', '', '', '2020-12-27 18:45:14'),
+(70, '', '', '', '', '', '', '2020-12-27 18:45:49'),
+(71, '', '', '', '', '', '', '2020-12-27 18:46:38'),
+(72, '', '', '', '', '', '', '2020-12-27 18:47:26'),
+(73, '', '', '', '', '', '', '2020-12-27 18:48:14'),
+(74, '', '', '', '', '', '', '2020-12-27 18:49:02'),
+(75, '', '', '', '', '', '', '2020-12-27 18:49:51'),
+(76, '', '', '', '', '', '', '2020-12-27 18:50:55'),
+(77, '', '', '', '', '', '', '2020-12-27 18:52:55'),
+(78, '', '', '', '', '', '', '2020-12-27 18:53:51'),
+(79, '', '', '', '', '', '', '2020-12-27 18:55:04'),
+(80, '', '', '', '', '', '', '2020-12-27 18:59:09'),
+(81, '', '', '', '', '', '', '2020-12-27 19:01:16'),
+(82, '', '', '', '', '', '', '2020-12-27 19:02:49'),
+(83, '', '', '', '', '', '', '2020-12-27 19:04:50'),
+(84, '', '', '', '', '', '', '2020-12-27 19:07:26'),
+(85, '', '', '', '', '', '', '2020-12-27 19:11:22'),
+(86, '0', '0', '28', '0', '0', 'Sabtu,26/12/2020 17:6:29', '2020-12-27 19:15:39'),
+(87, '0', '0', '28', '0', '0', 'Sabtu,26/12/2020 17:6:29', '2020-12-27 19:15:46'),
+(88, '', '', '', '', '', '', '2020-12-27 19:19:13'),
+(89, '0', '0', '3', '0', '0', 'Sabtu,26/12/2020 17:40:31', '2020-12-27 19:22:57'),
+(90, '0', '0', '3', '0', '0', 'Sabtu,26/12/2020 17:41:12', '2020-12-27 19:23:39'),
+(91, '', '', '', '', '', '', '2020-12-27 19:27:07'),
+(92, '', '', '', '', '', '', '2020-12-27 19:27:54'),
+(93, '', '', '', '', '', '', '2020-12-27 19:28:42'),
+(94, '', '', '', '', '', '', '2020-12-27 19:31:34'),
+(95, '0', '0', '0', '0', '0', 'Sabtu,26/12/2020 17:49:49', '2020-12-27 19:32:17'),
+(96, '0', '0', '239', '0', '0', 'Sabtu,26/12/2020 17:49:4', '2020-12-27 19:32:26'),
+(97, '0', '0', '239', '0', '0', 'Sabtu,26/12/2020 17:49:4', '2020-12-27 19:32:44'),
+(98, '', '', '', '', '', '', '2020-12-27 19:33:04'),
+(99, '', '', '', '', '', '', '2020-12-27 19:33:51'),
+(100, '', '', '', '', '', '', '2020-12-27 19:34:38'),
+(101, '', '', '', '', '', '', '2020-12-27 19:35:26'),
+(102, '', '', '', '', '', '', '2020-12-27 19:36:19'),
+(103, '', '', '', '', '', '', '2020-12-27 19:37:10'),
+(104, '', '', '', '', '', '', '2021-01-04 18:38:53'),
+(105, '99', '99', '99', '99', '99', 'rabu', '2021-01-04 18:40:56');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `hologramBot_hadir`
 --
 
@@ -262,7 +390,9 @@ CREATE TABLE `hologramBot_hadir` (
 --
 
 INSERT INTO `hologramBot_hadir` (`id_card`, `waktu`) VALUES
-('04-34-1F-CA-1B-29-80', '2020-12-14 02:27:07');
+('00-BF-11-A7', '2021-01-04 13:17:04'),
+('19-F8-16-78', '2021-01-04 13:27:00'),
+('04-66-60-42-E7-4C-81', '2021-01-04 13:36:04');
 
 -- --------------------------------------------------------
 
@@ -655,7 +785,101 @@ INSERT INTO `hologramBot_log` (`id_log`, `id_card`, `status`, `waktu`) VALUES
 (371, '19-F8-16-78', 'hadir', '2020-12-14 05:01:12'),
 (372, '19-F8-16-78', 'keluar', '2020-12-14 05:01:18'),
 (373, '19-F8-16-78', 'hadir', '2020-12-14 05:05:10'),
-(374, '19-F8-16-78', 'keluar', '2020-12-14 05:05:15');
+(374, '19-F8-16-78', 'keluar', '2020-12-14 05:05:15'),
+(375, '19-F8-16-78', 'hadir', '2020-12-14 05:22:42'),
+(376, '19-F8-16-78', 'keluar', '2020-12-14 05:22:48'),
+(377, '19-F8-16-78', 'hadir', '2020-12-14 05:36:24'),
+(378, '19-F8-16-78', 'keluar', '2020-12-14 05:36:28'),
+(379, '19-F8-16-78', 'hadir', '2020-12-14 05:36:35'),
+(380, '19-F8-16-78', 'keluar', '2020-12-14 05:36:39'),
+(381, '19-F8-16-78', 'hadir', '2020-12-14 05:38:49'),
+(382, '19-F8-16-78', 'keluar', '2020-12-14 05:39:13'),
+(383, '19-F8-16-78', 'hadir', '2020-12-14 20:04:09'),
+(384, '19-F8-16-78', 'keluar', '2020-12-14 20:04:33'),
+(385, '04-3E-62-42-E7-4C-81', 'hadir', '2020-12-14 20:05:10'),
+(386, 'B0-AB-56-A7', 'hadir', '2020-12-14 20:15:32'),
+(387, '04-64-6D-6A-E5-5B-80', 'hadir', '2020-12-14 20:15:46'),
+(388, '19-F8-16-78', 'hadir', '2020-12-14 20:15:54'),
+(389, '19-F8-16-78', 'keluar', '2020-12-14 20:16:46'),
+(390, '04-3E-62-42-E7-4C-81', 'keluar', '2020-12-14 23:20:45'),
+(391, '04-64-6D-6A-E5-5B-80', 'keluar', '2020-12-17 18:54:34'),
+(392, 'B0-AB-56-A7', 'keluar', '2020-12-17 18:56:12'),
+(393, '04-34-1F-CA-1B-29-80', 'keluar', '2020-12-17 18:58:08'),
+(394, '19-F8-16-78', 'hadir', '2020-12-17 19:24:34'),
+(395, '19-F8-16-78', 'keluar', '2020-12-17 19:32:59'),
+(396, '19-F8-16-78', 'hadir', '2020-12-17 19:39:38'),
+(397, '19-F8-16-78', 'keluar', '2020-12-17 19:39:59'),
+(398, '19-F8-16-78', 'hadir', '2020-12-17 21:35:04'),
+(399, '19-F8-16-78', 'keluar', '2020-12-17 21:35:07'),
+(400, '19-F8-16-78', 'hadir', '2020-12-17 22:21:58'),
+(401, '19-F8-16-78', 'keluar', '2020-12-17 22:22:25'),
+(402, '19-F8-16-78', 'hadir', '2020-12-17 22:35:21'),
+(403, '19-F8-16-78', 'keluar', '2020-12-17 22:45:07'),
+(404, '19-F8-16-78', 'hadir', '2020-12-17 22:45:14'),
+(405, '19-F8-16-78', 'keluar', '2020-12-17 22:50:52'),
+(406, '19-F8-16-78', 'hadir', '2020-12-17 22:51:02'),
+(407, '19-F8-16-78', 'keluar', '2020-12-17 22:51:15'),
+(408, '19-F8-16-78', 'hadir', '2020-12-17 22:52:46'),
+(409, '19-F8-16-78', 'keluar', '2020-12-17 22:52:58'),
+(410, '19-F8-16-78', 'hadir', '2020-12-18 21:50:00'),
+(411, '19-F8-16-78', 'keluar', '2020-12-18 21:50:13'),
+(412, '19-F8-16-78', 'hadir', '2020-12-21 17:31:03'),
+(413, '19-F8-16-78', 'keluar', '2020-12-21 17:32:28'),
+(414, '19-F8-16-78', 'hadir', '2020-12-21 17:43:07'),
+(415, '19-F8-16-78', 'keluar', '2020-12-21 17:51:14'),
+(416, '19-F8-16-78', 'hadir', '2020-12-21 17:55:11'),
+(417, '19-F8-16-78', 'keluar', '2020-12-21 18:17:01'),
+(418, '19-F8-16-78', 'hadir', '2020-12-21 18:17:21'),
+(419, '19-F8-16-78', 'keluar', '2020-12-21 18:19:07'),
+(420, '19-F8-16-78', 'hadir', '2020-12-21 18:19:50'),
+(421, '19-F8-16-78', 'keluar', '2020-12-21 23:53:38'),
+(422, '19-F8-16-78', 'hadir', '2020-12-22 19:35:22'),
+(423, '19-F8-16-78', 'keluar', '2020-12-23 21:13:40'),
+(424, '19-F8-16-78', 'hadir', '2020-12-23 21:13:54'),
+(425, '19-F8-16-78', 'keluar', '2020-12-23 21:14:04'),
+(426, '19-F8-16-78', 'hadir', '2020-12-23 21:17:44'),
+(427, '19-F8-16-78', 'keluar', '2020-12-23 21:22:04'),
+(428, '19-F8-16-78', 'hadir', '2020-12-23 21:22:13'),
+(429, '19-F8-16-78', 'keluar', '2020-12-23 21:22:41'),
+(430, '19-F8-16-78', 'hadir', '2020-12-23 21:23:47'),
+(431, '19-F8-16-78', 'keluar', '2020-12-28 13:17:24'),
+(432, '19-F8-16-78', 'hadir', '2020-12-28 13:18:06'),
+(433, '19-F8-16-78', 'keluar', '2020-12-28 14:42:58'),
+(434, '04-34-1F-CA-1B-29-80', 'hadir', '2020-12-28 14:43:38'),
+(435, '5B-D1-27-7B', 'daftar', '2020-12-28 14:45:48'),
+(436, '5B-D1-27-7B', 'hadir', '2020-12-28 14:45:56'),
+(437, '5B-D1-27-7B', 'keluar', '2020-12-30 16:23:41'),
+(438, '5B-D1-27-7B', 'hadir', '2020-12-30 16:24:02'),
+(439, '00-BF-11-A7', 'hadir', '2020-12-30 16:24:56'),
+(440, '5B-3E-29-7B', 'hadir', '2020-12-30 17:15:56'),
+(441, '5B-3E-29-7B', 'keluar', '2020-12-30 17:16:02'),
+(442, '5B-3E-29-7B', 'hadir', '2020-12-30 17:18:22'),
+(443, '5B-3E-29-7B', 'keluar', '2020-12-30 20:59:45'),
+(444, '5B-3E-29-7B', 'hadir', '2020-12-30 20:59:50'),
+(445, '5B-D1-27-7B', 'keluar', '2020-12-30 20:59:56'),
+(446, '5B-3E-29-7B', 'keluar', '2020-12-30 21:00:16'),
+(447, '5B-3E-29-7B', 'hadir', '2020-12-30 21:00:22'),
+(448, '5B-D1-27-7B', 'hadir', '2020-12-30 21:00:40'),
+(449, '5B-D1-27-7B', 'keluar', '2020-12-30 21:00:47'),
+(450, '5B-3E-29-7B', 'keluar', '2020-12-30 21:01:01'),
+(451, '00-BF-11-A7', 'keluar', '2021-01-02 13:42:06'),
+(452, '00-BF-11-A7', 'hadir', '2021-01-02 13:42:13'),
+(453, '04-34-1F-CA-1B-29-80', 'keluar', '2021-01-02 13:46:06'),
+(454, '19-F8-16-78', 'hadir', '2021-01-02 13:49:25'),
+(455, '19-F8-16-78', 'keluar', '2021-01-02 13:49:45'),
+(456, '19-F8-16-78', 'hadir', '2021-01-02 13:49:52'),
+(457, '19-F8-16-78', 'keluar', '2021-01-02 13:53:24'),
+(458, '04-66-60-42-E7-4C-81', 'daftar', '2021-01-02 13:54:53'),
+(459, '04-66-60-42-E7-4C-81', 'hadir', '2021-01-02 13:55:05'),
+(460, '19-F8-16-78', 'hadir', '2021-01-02 13:55:24'),
+(461, '19-F8-16-78', 'keluar', '2021-01-02 18:57:02'),
+(462, '04-66-60-42-E7-4C-81', 'keluar', '2021-01-02 18:57:22'),
+(463, '00-BF-11-A7', 'keluar', '2021-01-02 18:57:31'),
+(464, '19-F8-16-78', 'hadir', '2021-01-02 18:57:48'),
+(465, '19-F8-16-78', 'keluar', '2021-01-02 18:57:56'),
+(466, '00-BF-11-A7', 'hadir', '2021-01-04 13:17:04'),
+(467, '19-F8-16-78', 'hadir', '2021-01-04 13:27:00'),
+(468, '04-66-60-42-E7-4C-81', 'hadir', '2021-01-04 13:36:04');
 
 -- --------------------------------------------------------
 
@@ -679,6 +903,45 @@ INSERT INTO `hologramBot_tone` (`id_ringtone`, `ringtone_name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `hologramBot_toxic`
+--
+
+CREATE TABLE `hologramBot_toxic` (
+  `id` int(11) NOT NULL,
+  `kata` text COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `hologramBot_toxic`
+--
+
+INSERT INTO `hologramBot_toxic` (`id`, `kata`) VALUES
+(1, 'telaso'),
+(2, 'bajingan'),
+(3, 'bangsat'),
+(4, 'lonte'),
+(5, 'kontol'),
+(6, 'memek'),
+(7, 'kampret'),
+(8, 'jancok');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hologramBot_toxicLog`
+--
+
+CREATE TABLE `hologramBot_toxicLog` (
+  `id` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `kata_kunci` text COLLATE utf8_unicode_ci NOT NULL,
+  `kalimat` text COLLATE utf8_unicode_ci NOT NULL,
+  `waktu` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `hologramBot_user`
 --
 
@@ -698,10 +961,10 @@ CREATE TABLE `hologramBot_user` (
 --
 
 INSERT INTO `hologramBot_user` (`id_acc`, `id_user`, `id_card`, `first_name`, `last_name`, `username`, `ringtone`, `timestamp`) VALUES
-(1, '108488036', '19-F8-16-78', 'Muhammad Adnan', 'Surya', 'adnansurya', 1, '1594639856'),
+(1, '108488036', '19-F8-16-78', 'Muhammad Adnan', 'Surya', 'adnansurya', 2, '1594639856'),
 (2, '644768950', '00-59-3E-A7', 'Laode', 'Fitrah', 'laodefit02', 1, '1594648011'),
 (3, '955866881', '04-22-86-FA-96-2C-80', 'Dewi Pratiwi', 'Sasmito', 'todayis_you', 1, '1594648852'),
-(4, '108488036', '04-34-1F-CA-1B-29-80', 'Muhammad Adnan', 'Surya', 'adnansurya', 1, '1594649246'),
+(4, '108488036', '04-34-1F-CA-1B-29-80', 'Muhammad Adnan', 'Surya', 'adnansurya', 2, '1594649246'),
 (5, '916027884', '04-88-57-32-D5-28-80', 'Nrhikma', 'Kadja', 'Nrhikma08', 1, '1595053990'),
 (6, '956827994', '04-63-76-CA-E5-5B-80', 'Lock', 'Heed', 'LockHeed141', 1, '1595065334'),
 (7, '541142383', '70-96-8E-A6', 'Abel', 'Dimas', 'Abeldimas36', 1, '1595684125'),
@@ -711,86 +974,9 @@ INSERT INTO `hologramBot_user` (`id_acc`, `id_user`, `id_card`, `first_name`, `l
 (12, '631338800', '04-64-6D-6A-E5-5B-80', 'Ahmad', 'Kardawi', 'Ahmad_User', 1, '1602740085'),
 (13, '1195226552', '00-BF-11-A7', 'Raffi', 'Fadlika', 'mrfadlika', 1, '1603000602'),
 (14, '1475578626', 'B0-AB-56-A7', 'Fadlan', 'Fadil', '', 1, '1604650902'),
-(15, '1468069504', '04-3E-62-42-E7-4C-81', 'Khairullah', 'Miftahul S. Umar', '', 1, '1607868943');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `kurs`
---
-
-CREATE TABLE `kurs` (
-  `id` int(11) NOT NULL,
-  `usd` float NOT NULL,
-  `rp` float NOT NULL,
-  `nama_konversi` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `kurs`
---
-
-INSERT INTO `kurs` (`id`, `usd`, `rp`, `nama_konversi`) VALUES
-(1, 1, 14787.3, 'usdtorp');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `MR_user`
---
-
-CREATE TABLE `MR_user` (
-  `id_user` int(6) NOT NULL,
-  `username` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `password` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `nickname` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `roles` varchar(20) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `MR_user`
---
-
-INSERT INTO `MR_user` (`id_user`, `username`, `password`, `nickname`, `roles`) VALUES
-(1, 'adnansurya', 'makassar', 'Adnan', 'Owner');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `transaksi`
---
-
-CREATE TABLE `transaksi` (
-  `id_transaksi` int(11) NOT NULL,
-  `kode_perusahaan` text NOT NULL,
-  `kode_badan` text NOT NULL,
-  `nama_perusahaan` varchar(100) NOT NULL,
-  `alamat` text NOT NULL,
-  `provinsi` text NOT NULL,
-  `negara` text NOT NULL,
-  `no_telp` text NOT NULL,
-  `nama_barang` text NOT NULL,
-  `no_pr` text NOT NULL,
-  `tanggal_pr` text NOT NULL,
-  `no_po` varchar(100) NOT NULL,
-  `tanggal_po` text NOT NULL,
-  `owner_estimate_rp` float NOT NULL,
-  `owner_estimate_usd` float NOT NULL,
-  `harga_po_rp` float NOT NULL,
-  `harga_po_usd` float NOT NULL,
-  `harga_perolehan_rp` float NOT NULL,
-  `harga_perolehan_usd` float NOT NULL,
-  `kuantum` float NOT NULL,
-  `satuan` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `transaksi`
---
-
-INSERT INTO `transaksi` (`id_transaksi`, `kode_perusahaan`, `kode_badan`, `nama_perusahaan`, `alamat`, `provinsi`, `negara`, `no_telp`, `nama_barang`, `no_pr`, `tanggal_pr`, `no_po`, `tanggal_po`, `owner_estimate_rp`, `owner_estimate_usd`, `harga_po_rp`, `harga_po_usd`, `harga_perolehan_rp`, `harga_perolehan_usd`, `kuantum`, `satuan`) VALUES
-(1, 'pt', 'asd', 'asdNamaPerusahaan', 'asd', 'asd', 'asd', 'asd', 'asd', 'asd', '2020-09-03', '0', '2020-09-03', 73936.5, 5, 2, 0.000135251, 14787.3, 1, 0, '0'),
-(2, 'BUKK', 'CV (Commditaire Vennotschap)', 'Maju Bersama', 'Jalan Cahaya Gading No. 27', 'Kalimantan Barat', 'Indonesia', '08144775566', 'Pulpen Snowman', '1411', '2020-09-04', '7824', '2020-09-08', 100000, 6.76256, 59149.2, 4, 1500000, 101.438, 6788.45, 'liter');
+(15, '1468069504', '04-3E-62-42-E7-4C-81', 'Khairullah', 'Miftahul S. Umar', '', 1, '1607868943'),
+(16, '702152860', '5B-D1-27-7B', 'Riefad', 'Ichlasul', 'Skyblake', 1, '1609137948'),
+(17, '1127904433', '04-66-60-42-E7-4C-81', 'Abdol', 'Halik', 'halik9412', 1, '1609566893');
 
 --
 -- Indexes for dumped tables
@@ -828,6 +1014,12 @@ ALTER TABLE `AdoraBot_user`
   ADD UNIQUE KEY `acc_id` (`acc_id`);
 
 --
+-- Indexes for table `curahujan`
+--
+ALTER TABLE `curahujan`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `hologramBot_log`
 --
 ALTER TABLE `hologramBot_log`
@@ -840,28 +1032,22 @@ ALTER TABLE `hologramBot_tone`
   ADD PRIMARY KEY (`id_ringtone`);
 
 --
+-- Indexes for table `hologramBot_toxic`
+--
+ALTER TABLE `hologramBot_toxic`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `hologramBot_toxicLog`
+--
+ALTER TABLE `hologramBot_toxicLog`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `hologramBot_user`
 --
 ALTER TABLE `hologramBot_user`
   ADD PRIMARY KEY (`id_acc`);
-
---
--- Indexes for table `kurs`
---
-ALTER TABLE `kurs`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `MR_user`
---
-ALTER TABLE `MR_user`
-  ADD PRIMARY KEY (`id_user`);
-
---
--- Indexes for table `transaksi`
---
-ALTER TABLE `transaksi`
-  ADD PRIMARY KEY (`id_transaksi`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -898,10 +1084,16 @@ ALTER TABLE `AdoraBot_user`
   MODIFY `id_user` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `curahujan`
+--
+ALTER TABLE `curahujan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
+
+--
 -- AUTO_INCREMENT for table `hologramBot_log`
 --
 ALTER TABLE `hologramBot_log`
-  MODIFY `id_log` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=375;
+  MODIFY `id_log` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=469;
 
 --
 -- AUTO_INCREMENT for table `hologramBot_tone`
@@ -910,28 +1102,22 @@ ALTER TABLE `hologramBot_tone`
   MODIFY `id_ringtone` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `hologramBot_toxic`
+--
+ALTER TABLE `hologramBot_toxic`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `hologramBot_toxicLog`
+--
+ALTER TABLE `hologramBot_toxicLog`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `hologramBot_user`
 --
 ALTER TABLE `hologramBot_user`
-  MODIFY `id_acc` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
-
---
--- AUTO_INCREMENT for table `kurs`
---
-ALTER TABLE `kurs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `MR_user`
---
-ALTER TABLE `MR_user`
-  MODIFY `id_user` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `transaksi`
---
-ALTER TABLE `transaksi`
-  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_acc` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
