@@ -281,15 +281,21 @@
             if($check_toxic){
                 if (mysqli_num_rows($check_toxic) > 0) {
                     $row = mysqli_fetch_assoc($check_toxic);
-                    $kata_kunci = $row['kata'];   
+                    $kata_kunci = $row['kata']; 
+                    $toleransi = $row['toleransi'];  
                     
                     $sql = "INSERT INTO hologramBot_toxicLog(id_user,kata_kunci,kalimat,waktu) VALUES ('$user_id','$kata_kunci','$message','$waktu')";
                     
                     // $pesan = $getter;
                     // $pesan = $sql_toxic;
                     $pesan = "";
-                    
-                    deleteMessage($chat_id, $message_id, $token);       
+                    if($toleransi == 0){
+                        $pesan = "Pesan dihapus karena bersifat terlalu toxic atau kasar.";
+                        deleteMessage($chat_id, $message_id, $token);  
+                    }else{
+                        $pesan = "Sebaiknya gunakan kata yang lebih sopan ya";
+                    }
+                         
                     if (!mysqli_query($conn,$sql)){            
                         $pesan = 'Terjadi Kesalahan pada penulisan log database toxic';        
                     }
