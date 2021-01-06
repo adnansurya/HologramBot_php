@@ -17,7 +17,7 @@ if($req == 'bulanan'){
 
         while($r = mysqli_fetch_assoc($load)) {
             $rows[] = $r;
-            $bulanArr[] = $r['tahun'].'-'. $r['bulan'];
+            $bulanArr[] = $r['bulan'].'-'. $r['tahun'];
             $jumlahArr[] = $r['jumlah'];
         }
 
