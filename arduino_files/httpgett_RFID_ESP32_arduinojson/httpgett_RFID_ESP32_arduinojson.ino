@@ -10,6 +10,8 @@
 #define SS_PIN 21
 #define RST_PIN 34
 
+#define PINOUT 26
+
 #define ledKuning 12
 #define ledMerah 14
 #define ledHijau 27
@@ -31,6 +33,7 @@ void setup() {
   pinMode(ledMerah, OUTPUT);
   pinMode(ledKuning, OUTPUT);
   pinMode(ledHijau, OUTPUT);
+  pinMode(PINOUT, OUTPUT);
   
   SPI.begin();      // Initiate  SPI bus
   mfrc522.PCD_Init();   // Initiate MFRC522
@@ -49,6 +52,7 @@ void setup() {
   digitalWrite(ledMerah, HIGH);
   digitalWrite(ledKuning, HIGH);
   digitalWrite(ledHijau, HIGH);
+   digitalWrite(PINOUT, LOW);
   delay(2000);
     
 
@@ -60,6 +64,8 @@ void loop() {
   digitalWrite(ledMerah, LOW);
   digitalWrite(ledKuning, LOW);
   digitalWrite(ledHijau, LOW);
+   digitalWrite(PINOUT, LOW);
+
   if ( ! mfrc522.PICC_IsNewCardPresent()) 
   {
     return;
@@ -122,7 +128,9 @@ void loop() {
   
   
   
-  
+  digitalWrite(PINOUT, HIGH);   
+//  delay(500);
+//  digitalWrite(PINOUT, LOW);
   delay(3000);
 }
 String httpGETRequest(String serverName) {
