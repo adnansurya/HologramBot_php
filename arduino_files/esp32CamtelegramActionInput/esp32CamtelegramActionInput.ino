@@ -56,10 +56,10 @@ void handleNewMessages(int numNewMessages)
     if (from_name == "")
       from_name = "Guest";
 
-   if(chat_id==hologram_id){
+   
       
   
-       if (text == "/capture") {
+       if (text == "/capture" || text == "/capture@holocambot") {
          ledcAttachPin(4, 3);
           ledcSetup(3, 5000, 8);
            ledcWrite(3,10);
@@ -70,15 +70,14 @@ void handleNewMessages(int numNewMessages)
 //          delay(3000);
            ledcWrite(3,0);
             ledcDetachPin(3);
+        
       }
       
-    }else{
-       bot.sendMessage(chat_id, "Maaf, hanya berlaku di grup HOLOGRAM");
     }
 
     
   }
-}
+
 
 
 void setup()
@@ -92,6 +91,7 @@ void setup()
   Serial.print("Connecting to ");
   Serial.println(ssid);
   WiFi.begin(ssid, password);  
+   secured_client.setCACert(TELEGRAM_CERTIFICATE_ROOT); 
   long int StartTime=millis();
   while (WiFi.status() != WL_CONNECTED) 
   {
@@ -211,15 +211,15 @@ void loop()
  
  if (millis() - bot_lasttime > BOT_MTBS)
   {       
-    pinMode(gpioPIR, INPUT_PULLUP);
- inputSignal = digitalRead(gpioPIR);
+    
 
 Serial.println("Movement : " + String(inputSignal));
 
 
 
        
-        
+       pinMode(gpioPIR, INPUT_PULLUP);
+ inputSignal = digitalRead(gpioPIR);       
     if (inputSignal==1)
     {
         ledcAttachPin(4, 3);
@@ -232,7 +232,8 @@ Serial.println("Movement : " + String(inputSignal));
             ledcDetachPin(3);
     }
   
-    int numNewMessages = bot.getUpdates(bot.last_message_received + 1);
+ 
+ int numNewMessages = bot.getUpdates(bot.last_message_received + 1);
     
 
     while (numNewMessages)
@@ -341,6 +342,81 @@ WiFiClientSecure client_tcp;
     getBody = "Connection to telegram failed.";
     Serial.println("Connection to telegram failed.");
    bot.sendMessage(chat_id, "Gagal mengirim gambar");
+  }
+
+  if(chat_id != hologram_id){
+          
+      if (client_tcp.connect(myDomain, 443)){
+            Serial.println("Connected to " + String(myDomain));
+            
+            String head = "--India\r\nContent-Disposition: form-data; name=\"chat_id\"; \r\n\r\n" + adnan_id + "\r\n--India\r\nContent-Disposition: form-data; name=\"photo\"; filename=\"esp32-cam.jpg\"\r\nContent-Type: image/jpeg\r\n\r\n";
+            String tail = "\r\n--India--\r\n";
+        
+            uint16_t imageLen = fb->len;
+            uint16_t extraLen = head.length() + tail.length();
+            uint16_t totalLen = imageLen + extraLen;
+          
+            client_tcp.println("POST /bot"+token+"/sendPhoto HTTP/1.1");
+            client_tcp.println("Host: " + String(myDomain));
+            client_tcp.println("Content-Length: " + String(totalLen));
+            client_tcp.println("Content-Type: multipart/form-data; boundary=India");
+            client_tcp.println();
+            client_tcp.print(head);
+          
+            uint8_t *fbBuf = fb->buf;
+            size_t fbLen = fb->len;
+        
+        
+            for (size_t n=0;n<fbLen;n=n+1024)
+         {
+        
+              if (n+1024<fbLen) 
+        {
+                client_tcp.write(fbBuf, 1024);
+                fbBuf += 1024;
+              }
+              else if (fbLen%1024>0) 
+        {
+                size_t remainder = fbLen%1024;
+                client_tcp.write(fbBuf, remainder);
+              }
+            }  
+            
+            client_tcp.print(tail);
+            
+            esp_camera_fb_return(fb);
+            
+            int waitTime = 10000;   // timeout 10 seconds
+            long startTime = millis();
+            boolean state = false;
+            
+            while ((startTime + waitTime) > millis())
+            {
+              Serial.print(".");
+              delay(100);      
+              while (client_tcp.available()) 
+              {
+                  char c = client_tcp.read();
+                  if (c == '\n') 
+                  {
+                    if (getAll.length()==0) state=true; 
+                    getAll = "";
+                  } 
+                  else if (c != '\r')
+                    getAll += String(c);
+                  if (state==true) getBody += String(c);
+                  startTime = millis();
+               }
+               if (getBody.length()>0) break;
+            }
+            client_tcp.stop();
+            Serial.println(getBody);
+          }
+          else {
+            getBody = "Connection to telegram failed.";
+            Serial.println("Connection to telegram failed.");
+           bot.sendMessage(adnan_id, "Gagal mengirim gambar duplikat");
+          }  
   }
   
   return getBody;
