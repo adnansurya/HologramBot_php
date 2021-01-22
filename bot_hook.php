@@ -270,39 +270,39 @@
               
     }else{
         
-        if($chat_id == $hologram_id && $message != ""){
+        // if($chat_id == $hologram_id && $message != ""){
            
-            $alnum_msg = preg_replace("/[^A-Za-z0-9 ]/", '', $message);
-            $new_msg = str_replace(" ", "' OR kata LIKE '", trim($alnum_msg." "), $jumlah);
+        //     $alnum_msg = preg_replace("/[^A-Za-z0-9 ]/", '', $message);
+        //     $new_msg = str_replace(" ", "' OR kata LIKE '", trim($alnum_msg." "), $jumlah);
             
-            $sql_toxic = "SELECT * FROM hologramBot_toxic WHERE kata LIKE '".$new_msg."'";
-            $check_toxic = mysqli_query($conn,$sql_toxic);
-            if($check_toxic){
-                if (mysqli_num_rows($check_toxic) > 0) {
-                    $row = mysqli_fetch_assoc($check_toxic);
-                    $kata_kunci = $row['kata']; 
-                    $toleransi = $row['toleransi'];  
+        //     $sql_toxic = "SELECT * FROM hologramBot_toxic WHERE kata LIKE '".$new_msg."'";
+        //     $check_toxic = mysqli_query($conn,$sql_toxic);
+        //     if($check_toxic){
+        //         if (mysqli_num_rows($check_toxic) > 0) {
+        //             $row = mysqli_fetch_assoc($check_toxic);
+        //             $kata_kunci = $row['kata']; 
+        //             $toleransi = $row['toleransi'];  
                     
-                    $sql = "INSERT INTO hologramBot_toxicLog(id_user,kata_kunci,kalimat,waktu) VALUES ('$user_id','$kata_kunci','$message','$waktu')";
+        //             $sql = "INSERT INTO hologramBot_toxicLog(id_user,kata_kunci,kalimat,waktu) VALUES ('$user_id','$kata_kunci','$message','$waktu')";
                     
-                    // $pesan = $getter;
-                    // $pesan = $sql_toxic;
-                    $pesan = "";
-                    if($toleransi == 0){
-                        $pesan = "Pesan dihapus karena bersifat terlalu toxic atau kasar";
-                        deleteMessage($chat_id, $message_id, $token);  
-                    }else{
-                        $pesan = "Sebaiknya gunakan kata yang lebih sopan ya";
-                    }
+        //             // $pesan = $getter;
+        //             // $pesan = $sql_toxic;
+        //             $pesan = "";
+        //             if($toleransi == 0){
+        //                 $pesan = "Pesan dihapus karena bersifat terlalu toxic atau kasar";
+        //                 deleteMessage($chat_id, $message_id, $token);  
+        //             }else{
+        //                 $pesan = "Sebaiknya gunakan kata yang lebih sopan ya";
+        //             }
                          
-                    if (!mysqli_query($conn,$sql)){            
-                        $pesan = 'Terjadi Kesalahan pada penulisan log database toxic';        
-                    }
-                }
-            }else{
-                $pesan = 'Error Check Toxic';
-            }
-        }
+        //             if (!mysqli_query($conn,$sql)){            
+        //                 $pesan = 'Terjadi Kesalahan pada penulisan log database toxic';        
+        //             }
+        //         }
+        //     }else{
+        //         $pesan = 'Error Check Toxic';
+        //     }
+        // }
         
     }
     if($pesan != ""){
