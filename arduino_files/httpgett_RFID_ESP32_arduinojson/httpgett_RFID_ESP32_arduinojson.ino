@@ -12,13 +12,13 @@
 
 #define PINOUT 26
 
-#define ledKuning 12
-#define ledMerah 14
-#define ledHijau 27
+#define ledKuning 14
+#define ledMerah 27
+#define ledHijau 12
 
 MFRC522 mfrc522(SS_PIN, RST_PIN);  
 
-const char* ssid = "HOLOGRAM2";
+const char* ssid = "HOLOGRAM";
 const char* password = "untukapa?";
 
 //Your Domain name with URL path or IP address with path
@@ -128,7 +128,7 @@ void loop() {
   
   
   
-  digitalWrite(PINOUT, HIGH);   
+   
 //  delay(500);
 //  digitalWrite(PINOUT, LOW);
   delay(3000);
@@ -148,6 +148,8 @@ String httpGETRequest(String serverName) {
     Serial.print("HTTP Response code: ");
     Serial.println(httpResponseCode);
     payload = http.getString();
+    digitalWrite(PINOUT, HIGH); 
+    delay(1000); 
   }
   else {
     Serial.print("Error code: ");

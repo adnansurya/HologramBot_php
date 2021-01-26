@@ -29,7 +29,7 @@
 
 const unsigned long BOT_MTBS = 3000; // mean time between scan messages
 
-const char* ssid     = "HOLOGRAM2";   //WIFI SSID
+const char* ssid     = "HOLOGRAM";   //WIFI SSID
 const char* password = "untukapa?";   //WIFI password
 String token = "1564078066:AAHpbk7ryIumTCBIhMsxz4tvXF62KEEEDLk";
 String hologram_id = "-1001195370799";
