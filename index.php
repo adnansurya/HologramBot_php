@@ -10,7 +10,7 @@
     <div class="wrapper">
         <?php include 'partials/sidebar.php'; ?>
         <div class="main-panel">
-            <?php include 'partials/topbar.php'; ?>
+            <?php //include 'partials/topbar.php'; ?>
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
