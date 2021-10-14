@@ -1,4 +1,3 @@
-from genericpath import isdir
 import cv2
 import numpy as np
 import face_recognition
@@ -24,7 +23,7 @@ objVideo.set(cv2.CAP_PROP_FRAME_HEIGHT, 320)
 
 tombolDitekan = False
 tekanC = False
-adaFoto = False
+adaOrang = False
 
 path = 'Foto'
 if not os.path.exists(path):
@@ -56,18 +55,28 @@ def face_rec_(frame, encode_list_known, class_names):
         :return:
         """
         # face recognition
-        faces_cur_frame = face_recognition.face_locations(frame)
+        faces_cur_frame = face_recognition.face_locations(frame) 
+        
+        global adaOrang
+        if len(faces_cur_frame) > 0:
+            adaOrang = True
+        else:
+            adaOrang = False
+
         encodes_cur_frame = face_recognition.face_encodings(frame, faces_cur_frame)
         # count = 0
         for encodeFace, faceLoc in zip(encodes_cur_frame, faces_cur_frame):
             match = face_recognition.compare_faces(encode_list_known, encodeFace, tolerance=0.50)
             face_dis = face_recognition.face_distance(encode_list_known, encodeFace)
             name = "unknown"
-            best_match_index = np.argmin(face_dis)
-            # print("s",best_match_index)
+
+            if len(class_names) < 0:
+                best_match_index = np.argmin(face_dis)
+            else:
+                best_match_index = -1
             
             y1, x2, y2, x1 = faceLoc
-            if match[best_match_index]:
+            if best_match_index > -1 and match[best_match_index]:
                 name = class_names[best_match_index].upper()            
                 cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
                 cv2.rectangle(frame, (x1, y2 - 20), (x2, y2), (0, 255, 0), cv2.FILLED)
@@ -125,7 +134,7 @@ while (tombolDitekan == False):
 objVideo.release()
 cv2.destroyAllWindows()
 
-if lastKnown == 'unknown':
+if lastKnown == 'unknown' and adaOrang:
     namaFoto = str(input("Masukkan Nama Panggilan: "))
     namaFoto += ".jpg"
     cv2.imwrite(path+"/"+namaFoto, lastFrame)

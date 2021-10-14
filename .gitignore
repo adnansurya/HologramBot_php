@@ -1,3 +1,5 @@
 secret.php
 
 python_files/faceRecognition/Foto/
+
+python_files/faceRecognition/__pycache__/
