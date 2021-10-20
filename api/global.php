@@ -1,8 +1,7 @@
 <?php 
 
     include 'secret.php';
-
-
+    $debugMode = True;
 
     function sendMessage($chatId, $msg, $tokenAPI){
         $request_params = [
