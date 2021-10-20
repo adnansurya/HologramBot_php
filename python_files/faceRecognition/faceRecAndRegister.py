@@ -70,7 +70,7 @@ def face_rec_(frame, encode_list_known, class_names):
             face_dis = face_recognition.face_distance(encode_list_known, encodeFace)
             name = "unknown"
 
-            if len(class_names) < 0:
+            if len(class_names) > 0:
                 best_match_index = np.argmin(face_dis)
             else:
                 best_match_index = -1
