@@ -1,7 +1,9 @@
 <?php
 
     include 'global.php';
+    include 'ported_db.php';
     echo 'ported_hook.php';
+    
 
     $debugMode = True;
 
@@ -69,9 +71,33 @@
             if(!$debugMode){
                 sendMessage($send_id, $pesan, $token);
             }
+           
             
             
         }        
+    }elseif(getComm($message, '/daftar')){            
+        if($chat_id !== $user_id){
+            if($chat_id === $hologram_id || getComm($message, '/daftar@hologrambeso_bot')){
+                $pesan = 'Untuk mendaftar, chat (PC) saya dengan format:'.PHP_EOL.'/daftar <id_kartu>' .PHP_EOL.PHP_EOL.'PENTING: Jangan mendaftar dengan sembarang id_kartu!';
+                
+            }else{
+                $pesan = 'Gunakan HologramBot hanya pada Grup HOLOGRAM!';
+            }
+                      
+        }else{                                      
+            if (checkMember($user_id)) {
+                //id dikenali                        
+                $pesan = 'User sudah terdaftar!';                               
+            }else{
+                //id baru
+                $status = "daftar";                                
+                if (!newMember($user_id, "", $first_name, $last_name, $username, "", $timestamp, 0)){            
+                    $pesan = 'Terjadi Kesalahan pendaftaran user!';    
+                }else{                    
+                    $pesan = 'Pendaftaran berhasil!';
+                }                               
+            }      
+        }                
     }
 
     if($pesan != ""){
