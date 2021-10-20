@@ -25,4 +25,16 @@ function newMember($idTele, $idKtp, $fstNm, $lstNm, $urNm, $imFl, $tmStmp, $role
     }
 }
 
+function allMember(){
+    global $db;
+    $members = $db->query("SELECT * FROM holo_ur");    
+    $rows = array();
+    // $resObj -> result = "";
+    while($row = $members->fetchArray(SQLITE3_ASSOC) ) {    
+        $rows[] = $row;
+    }
+
+    return json_encode($rows);
+}
+
 ?>
