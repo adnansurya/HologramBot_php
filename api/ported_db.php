@@ -13,10 +13,19 @@ function checkMember($id_user){
 }
 
 
+function getOneMember($id_user){
+    global $db;
+    $userData = $db->querySingle("SELECT * FROM holo_ur WHERE id_ur=".$id_user, true);    
+    return $userData;
+}
+
+
+
+
 function newMember($idTele, $idKtp, $fstNm, $lstNm, $urNm, $imFl, $tmStmp, $role){
     global $db;
     $sqlStr = "INSERT INTO holo_ur  (id_ur, ktp_hex, fst_nm, lst_nm, ur_nm, im_fl, tm_stmp, role) VALUES ('".$idTele."','".$idKtp."','".$fstNm."','".$lstNm."','".$urNm."','".$imFl."','".$tmStmp."','".$role."') " ;
-    echo $sqlStr;
+    // echo $sqlStr;
     $dbResult = $db->exec($sqlStr);
     if($dbResult){
         return TRUE;
@@ -35,6 +44,19 @@ function allMember(){
     }
 
     return json_encode($rows);
+}
+
+function addImage($idUser, $filename){
+    global $db;
+    $sqlStr = "UPDATE holo_ur SET im_fl='".$filename."', role=1 WHERE id_ur='".$idUser."'";
+    // echo $sqlStr;
+    $dbResult = $db->exec($sqlStr);
+    if($dbResult){
+        return TRUE;
+    }else{
+        return FALSE;
+    }
+    // return $dbResult;
 }
 
 ?>

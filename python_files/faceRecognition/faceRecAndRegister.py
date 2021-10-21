@@ -6,7 +6,10 @@ import time
 import dbManager
 import os
 import customFunction as cfun
+import requests
 
+
+urlServer = "https://hologramks.000webhostapp.com/"
 namaFolder = "Foto"
 
 # namaFoto = str(input("Masukkan Nama Panggilan: "))
@@ -135,17 +138,54 @@ objVideo.release()
 cv2.destroyAllWindows()
 
 if lastKnown == 'unknown' and adaOrang:
-    namaFoto = str(input("Masukkan Nama Panggilan: "))
-    namaFoto += ".jpg"
-    cv2.imwrite(path+"/"+namaFoto, lastFrame)
-    idTelegram = str(input("Masukkan Id Telegram :"))
-    idKtp = str(input("Masukkan Id KTP: "))
-    # namaLengkap = str(input("Masukkan Nama Lengkap: "))
-    firstName = str(input("First Name: ")) #ns.awalNama(namaLengkap)
-    lastName =  str(input("Last Name: "))#ns.akhirNama(namaLengkap)
-    username = str(input("Masukkan username : "))
-    timeStamp = int(time.time())
-    dbManager.newUser(idTelegram, idKtp, firstName, lastName,username, namaFoto, timeStamp, 1)
+    namaFoto = str(input("Masukkan Nama Foto : "))
+    
+
+    r = requests.get(urlServer + "api/get_member.php")
+
+    jsonObj = r.json()
+
+    print('No - Telegram - KTP - FirstName - LastName - Username - Foto - Timestamp - Role ') 
+    print('--------------------------------------------------------------------------')       
+    userDisplay = ""
+    for i in range(len(jsonObj)):
+        userObj = jsonObj[i] 
+        
+        userDisplay += str(i+1)
+        userDisplay += " - "   
+        for key in userObj:
+            if userObj[key] == "":
+                userDisplay += "x"               
+            if key != "id_ac":
+                userDisplay += str(userObj[key])
+                userDisplay += " - "                        
+            # print(key, ":", userObj[key])
+
+        
+
+    print(userDisplay)
+    idUser = int(input("Masukkan No. Member sesuai Foto : ")) -1
+    idTelegram = str(jsonObj[idUser]['id_ur'])    
+
+    
+    myobj = {
+        'id': idTelegram,
+        'filename' : namaFoto
+        }
+
+    x = requests.post(urlServer + "api/photo_link.php", data = myobj)
+
+    respon = x.text
+    print(respon)
+    
+    if(respon.find('Berhasil') > -1):
+        i = 0
+        namaFoto = respon.split(':')[1]
+       
+        while os.path.exists("%s-%s.jpg" % (namaFoto, i)):
+            i += 1                
+        cv2.imwrite(path+"/"+namaFoto+"-"+str(i)+".jpg", lastFrame)
+    
 
 
 
