@@ -61,6 +61,6 @@ with open(namaFileFoto, "rb") as image_file:
         'gambar': encoded_string
         }
 
-    x = requests.post(urlServer + "api/absen.php", data = myobj)
+    x = requests.post(urlServer + "api/ported_absen.php", data = myobj)
     respon = x.text
     print(respon)
