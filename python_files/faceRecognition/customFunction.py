@@ -16,3 +16,15 @@ def sebutNama(nama):
     myobj.save("welcome.mp3")
 
     playsound("welcome.mp3")
+
+def uniquify(path):
+    filename, extension = os.path.splitext(path)
+    counter = 0 
+    path = filename + "-" + str(counter) + extension
+    while os.path.exists(path):
+        path = filename + "-" + str(counter) + extension
+        counter += 1
+
+    return path
+
+# print(uniquify('Foto/Adnan.jpg'))

@@ -80,7 +80,8 @@ def face_rec_(frame, encode_list_known, class_names):
             
             y1, x2, y2, x1 = faceLoc
             if best_match_index > -1 and match[best_match_index]:
-                name = class_names[best_match_index].upper()            
+                name = class_names[best_match_index].upper()  
+                name = str(name).split("-")[0]     
                 cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
                 cv2.rectangle(frame, (x1, y2 - 20), (x2, y2), (0, 255, 0), cv2.FILLED)
                 
@@ -109,6 +110,8 @@ def face_rec_(frame, encode_list_known, class_names):
             # mark_attendance(name)
             
         return frame
+
+        
 lastFrame =None
 while (tombolDitekan == False):
     ret, frame = objVideo.read()
@@ -137,7 +140,7 @@ while (tombolDitekan == False):
 objVideo.release()
 cv2.destroyAllWindows()
 
-if lastKnown == 'unknown' and adaOrang:
+if lastNamed == 'unknown' and adaOrang:
     namaFoto = str(input("Masukkan Nama Foto : "))
     
 
@@ -180,11 +183,11 @@ if lastKnown == 'unknown' and adaOrang:
     
     if(respon.find('Berhasil') > -1):
         i = 0
-        namaFoto = respon.split(':')[1]
-       
-        while os.path.exists("%s-%s.jpg" % (namaFoto, i)):
-            i += 1                
-        cv2.imwrite(path+"/"+namaFoto+"-"+str(i)+".jpg", lastFrame)
+        namaFoto = respon.split(':')[1]       
+
+        namaFileFoto = cfun.uniquify(path+"/"+namaFoto+".jpg")
+        print(namaFileFoto)          
+        cv2.imwrite(namaFileFoto, lastFrame)
     
 
 
