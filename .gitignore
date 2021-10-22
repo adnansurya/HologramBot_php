@@ -7,3 +7,5 @@ python_files/faceRecognition/__pycache__/
 captured/
 
 python_files/faceRecognition/Capture/
+
+python_files/faceRecognition/holoAbsen.db
