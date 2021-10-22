@@ -60,7 +60,7 @@ function allMember(){
 
 function addImage($idUser, $filename){
     $namaImg = strtoupper($filename);
-    
+
     global $db;
     $sqlStr = "UPDATE holo_ur SET im_fl='".$namaImg."', role=1 WHERE id_ur='".$idUser."'";
     // echo $sqlStr;
@@ -99,7 +99,7 @@ function actHadir($val, $jenis, $wkt){
 
         }else{
             $statusLog = 'tak dikenali';
-            $nama = 'anonim';
+            $nama = 'UNKNOWN';
             $msg = 'Member tak dikenali';
         }
         
@@ -108,5 +108,25 @@ function actHadir($val, $jenis, $wkt){
     addLog($nama, $idTel, $idKtp, $statusLog, $wkt);
     return $msg;
 }
+
+
+function getLastLogByName($nama){
+    global $db, $date;
+
+    $sqlStr = "SELECT * FROM holo_lg WHERE nm='".$nama."' ORDER BY id_lg DESC LIMIT 1";
+    $cekLog = $db->querySingle($sqlStr, true);
+
+    if($cekLog){
+        $myDateTime = DateTime::createFromFormat('d-m-Y H:i:s', $cekLog['wkt']);
+        $newDateString = $myDateTime->format('Y-m-d H:i:s');
+    }else{
+        $newDateString = $date->format('Y-m-d H:i:s');
+    }   
+
+    return $newDateString;
+}
+
+
+
 
 ?>

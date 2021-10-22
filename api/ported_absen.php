@@ -11,18 +11,32 @@
     $filepic='../captured/'.$namapic;
     file_put_contents($filepic, base64_decode($gambar));
 
-    if($debugMode){
-        sendImage($adnan_id, $filepic, $token);
-    }else{
-        sendImage($hologram_id, $filepic, $token);
+    
+
+   
+    $lastLog = getLastLogByName($nama);
+    $selisih = selisihWaktu($lastLog);
+    echo $selisih;
+
+    if($selisih > 60 || $selisih == 0){
+        $pesan = actHadir($nama, 'img', $waktu);   
+
+        // if($debugMode){            
+        //     sendMessage($adnan_id, $pesan, $token);
+        // }else{
+        //     sendMessage($hologram_id, $pesan, $token);
+        // }
+
+        if($debugMode){
+            sendImageCaption($adnan_id, $filepic,$pesan, $token);
+        }else{
+            sendImageCaption($hologram_id, $filepic,$pesan, $token);
+        }
     }
 
-    $pesan = actHadir($nama, 'img', $waktu);   
 
-    if($debugMode){
-        sendImage($adnan_id, $pesan, $token);
-    }else{
-        sendImage($hologram_id, $pesan, $token);
-    }
+    
+
+    
 
 ?>
