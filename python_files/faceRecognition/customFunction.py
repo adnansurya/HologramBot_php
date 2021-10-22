@@ -1,6 +1,8 @@
 from gtts import gTTS
 from playsound import playsound
 import os
+import requests
+import base64
 
 
 def printText(teks):
@@ -26,5 +28,11 @@ def uniquify(path):
         counter += 1
 
     return path
+
+
+def toBase64(imgPath):
+    with open(imgPath, "rb") as image_file:
+        encoded_string = base64.b64encode(image_file.read())
+    return encoded_string         
 
 # print(uniquify('Foto/Adnan.jpg'))

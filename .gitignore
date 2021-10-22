@@ -9,3 +9,5 @@ captured/
 python_files/faceRecognition/Capture/
 
 python_files/faceRecognition/holoAbsen.db
+
+python_files/faceRecognition/LastFrame/

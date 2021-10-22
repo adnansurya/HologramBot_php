@@ -1,6 +1,5 @@
 <?php
 include 'ported_db.php';
-include 'global.php';
 if(isset($_POST['id']) && isset($_POST['filename'])) {
     if(checkMember($_POST['id']) == 0){
         echo 'Anggota Tidak Dikenali';

@@ -1,6 +1,5 @@
 <?php
-
-    include 'global.php';
+ 
     include 'ported_db.php';
     echo 'ported_hook.php';
        

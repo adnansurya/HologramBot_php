@@ -9,11 +9,9 @@ import customFunction as cfun
 import requests
 
 
-urlServer = "https://hologramks.000webhostapp.com/"
+# urlServer = "https://hologramks.000webhostapp.com/"
+urlServer = "http://127.0.0.1/HologramBot_php/"
 namaFolder = "Foto"
-
-# namaFoto = str(input("Masukkan Nama Panggilan: "))
-# namaFoto += ".jpg"
 
 
 objVideo = cv2. VideoCapture(0)
@@ -31,6 +29,11 @@ adaOrang = False
 path = 'Foto'
 if not os.path.exists(path):
     os.mkdir(path)
+
+framePath = 'LastFrame'
+if not os.path.exists(framePath):
+    os.mkdir(framePath)
+
 # known face encoding and known face name list
 lastNamed = "unknown"
 lastKnown = "unknown"
@@ -94,8 +97,20 @@ def face_rec_(frame, encode_list_known, class_names):
             global lastKnown
 
             if name != lastNamed:
+                
+                cv2.imwrite(framePath+"/LastFrame.jpg", frame)
+                imgFile = cfun.toBase64(framePath+"/LastFrame.jpg")
+                myobj = {
+                    'gambar': imgFile,
+                    'nama' : name
+                    }
+
+                x = requests.post(urlServer + "api/ported_absen.php", data = myobj)
+                respon = x.text
+                print(respon)
                 cfun.printText(name)
                 if name != lastKnown and name != "unknown":
+                    
                     # p3.sebutNama(name)
                     teks = name + " (Dikenal)"
                     cfun.printText(teks)

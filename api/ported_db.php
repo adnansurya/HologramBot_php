@@ -1,5 +1,5 @@
 <?php
-
+include 'global.php';
 $dbDir = '../python_files/faceRecognition/';
 $db= new SQLite3($dbDir.'holoAbsen.db');
 
@@ -34,6 +34,18 @@ function newMember($idTele, $idKtp, $fstNm, $lstNm, $urNm, $imFl, $tmStmp, $role
     }
 }
 
+function addLog($nama, $idTele, $idKtp, $stat, $waktu){
+    global $db;
+    $sqlStr = "INSERT INTO holo_lg  (nm, id_ur, ktp_hex, st_lg, wkt) VALUES ('".$nama."','".$idTele."','".$idKtp."','".$stat."','".$waktu."') " ;
+    // echo $sqlStr;
+    $dbResult = $db->exec($sqlStr);
+    if($dbResult){
+        return TRUE;
+    }else{
+        return FALSE;
+    }
+}
+
 function allMember(){
     global $db;
     $members = $db->query("SELECT * FROM holo_ur");    
@@ -47,8 +59,10 @@ function allMember(){
 }
 
 function addImage($idUser, $filename){
+    $namaImg = strtoupper($filename);
+    
     global $db;
-    $sqlStr = "UPDATE holo_ur SET im_fl='".$filename."', role=1 WHERE id_ur='".$idUser."'";
+    $sqlStr = "UPDATE holo_ur SET im_fl='".$namaImg."', role=1 WHERE id_ur='".$idUser."'";
     // echo $sqlStr;
     $dbResult = $db->exec($sqlStr);
     if($dbResult){
@@ -57,6 +71,42 @@ function addImage($idUser, $filename){
         return FALSE;
     }
     // return $dbResult;
+}
+
+
+function actHadir($val, $jenis, $wkt){
+    global $db;
+    $msg = '';
+    $idTel = '';
+    $idKtp = '';
+    $statusLog = '';
+    $nama = '';
+    if($jenis == 'img'){
+        $nama = $val;
+        $cekMember = $db->querySingle("SELECT * FROM holo_ur WHERE im_fl='".$nama."'", true);  
+        if($cekMember){
+            $idTel = $cekMember['id_ac'];            
+            $cekHadir = $db->querySingle("SELECT  count(id_ac) AS 'hadir' FROM hadir WHERE id_ac='".$idTel."'", false); 
+            if($cekHadir){                
+                $statusLog = 'pulang';
+                $db->exec("DELETE from hadir WHERE id_ac='".$idTel."'");
+                $msg = 'Nanti datang lagi ya, '.$nama.' !';
+            }else{
+                $statusLog = 'datang';
+                $db->exec("INSERT INTO hadir (id_ac, waktu) VALUES ('".$idTel."','".$wkt."')");
+                $msg = $nama.' lagi di basecamp nih';
+            }
+
+        }else{
+            $statusLog = 'tak dikenali';
+            $nama = 'anonim';
+            $msg = 'Member tak dikenali';
+        }
+        
+    }
+    
+    addLog($nama, $idTel, $idKtp, $statusLog, $wkt);
+    return $msg;
 }
 
 ?>
