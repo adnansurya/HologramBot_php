@@ -45,5 +45,5 @@
     }
 
     $date = new DateTime("now", new DateTimeZone('Asia/Makassar') );
-    $waktu = $date->format('Y-m-d H:i:s');
+    $waktu = $date->format('d-m-Y H:i:s');
 ?>
