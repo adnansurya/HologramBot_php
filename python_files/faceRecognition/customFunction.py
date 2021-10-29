@@ -1,5 +1,5 @@
-from gtts import gTTS
-from playsound import playsound
+#from gtts import gTTS
+#from playsound import playsound
 import os
 import requests
 import base64
@@ -10,14 +10,14 @@ def printText(teks):
     print(tampilkan)
 
 
-def sebutNama(nama):
-    mytext = 'Hallo ' + str(nama)
+# def sebutNama(nama):
+#     mytext = 'Hallo ' + str(nama)
 
-    language = 'en'
-    myobj = gTTS(text=mytext, lang=language, slow=False)
-    myobj.save("welcome.mp3")
+#     language = 'en'
+#     myobj = gTTS(text=mytext, lang=language, slow=False)
+#     myobj.save("welcome.mp3")
 
-    playsound("welcome.mp3")
+#     playsound("welcome.mp3")
 
 def uniquify(path):
     filename, extension = os.path.splitext(path)
