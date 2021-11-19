@@ -72,10 +72,52 @@
             
             
         }        
-    }elseif(getComm($message, '/daftar')){            
-        if($chat_id !== $user_id){
+    }elseif(getComm($message, '/getallmembers')){  
+        
+        if($user_id != $adnan_id){
+            $pesan = 'Maaf kak, command itu hanya untuk admin :)';
+        }else{
+           
+            $pesan = getAllMemberStr();   
+            sendMessage($user_id, $pesan, $token); 
+            $pesan = "";                              
+        }    
+
+    }elseif(getComm($message, '/daftar')){ 
+        $subcomm = substr($message, 8);           
+        if($chat_id !== $user_id ){
             if($chat_id === $hologram_id || getComm($message, '/daftar@hologrambeso_bot')){
-                $pesan = 'Untuk mendaftar, chat (PC) saya dengan format:'.PHP_EOL.'/daftar <id_kartu>' .PHP_EOL.PHP_EOL.'PENTING: Jangan mendaftar dengan sembarang id_kartu!';
+                $pesan = 'Untuk mendaftar, chat (PC) saya dengan format:'.PHP_EOL.'/daftar <nickname>';
+                
+            }else{
+                $pesan = 'Gunakan HologramBot hanya pada Grup HOLOGRAM!';
+            }
+                      
+        }else{  
+            if($subcomm == ""){
+                $pesan = 'Cara mendaftar:'.PHP_EOL.'/daftar <nickname>'.PHP_EOL.PHP_EOL.'(Ketik /daftar secara manual)';
+            }else{
+                if (checkMember($user_id)) {
+                    //id dikenali                        
+                    $pesan = 'User sudah terdaftar!';                               
+                }else{
+                    //id baru
+                   
+                    $status = "daftar";                                
+                    if (!newMember($user_id, "", $first_name, $last_name, $username, "", $timestamp, 0, $subcomm)){            
+                        $pesan = 'Terjadi Kesalahan pendaftaran user!';    
+                    }else{                    
+                        $pesan = 'Pendaftaran berhasil!';
+                    }                               
+                }  
+            }                                  
+                
+        }                
+    }
+    elseif(getComm($message, '/editnick')){            
+        if($chat_id !== $user_id){
+            if($chat_id === $hologram_id || getComm($message, '/editnick@hologrambeso_bot')){
+                $pesan = 'Untuk mengubah nickname, chat (PC) saya dengan format:'.PHP_EOL.'/editnick <nickname_baru>' .PHP_EOL.PHP_EOL.'PENTING: Jangan mendaftar dengan sembarang id_kartu!';
                 
             }else{
                 $pesan = 'Gunakan HologramBot hanya pada Grup HOLOGRAM!';
@@ -84,15 +126,16 @@
         }else{                                      
             if (checkMember($user_id)) {
                 //id dikenali                        
-                $pesan = 'User sudah terdaftar!';                               
-            }else{
-                //id baru
-                $status = "daftar";                                
-                if (!newMember($user_id, "", $first_name, $last_name, $username, "", $timestamp, 0)){            
-                    $pesan = 'Terjadi Kesalahan pendaftaran user!';    
+                $subcomm = substr($message, 10);
+                if (!editNick($user_id, $subcomm)){            
+                    $pesan = 'Terjadi Kesalahan perubahan nickname!';    
                 }else{                    
-                    $pesan = 'Pendaftaran berhasil!';
-                }                               
+                    $pesan = 'Nickname baru berhasil disimpan!';
+                }                                 
+            }else{
+                //id baru             
+                $pesan = 'User belum terdaftar!';                                
+                                           
             }      
         }                
     }

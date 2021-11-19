@@ -9,9 +9,10 @@ import customFunction as cfun
 import requests
 
 
-# urlServer = "https://hologramks.000webhostapp.com/"
-urlServer = "http://127.0.0.1/HologramBot_php/"
+urlServer = "https://hologramks.000webhostapp.com/"
+# urlServer = "http://127.0.0.1/HologramBot_php/"
 namaFolder = "Foto"
+
 
 
 objVideo = cv2. VideoCapture(0)
@@ -81,7 +82,8 @@ def face_rec_(frame, encode_list_known, class_names):
             else:
                 best_match_index = -1
             
-            y1, x2, y2, x1 = faceLoc
+            y1, x2, y2, x1 = faceLoc            
+
             if best_match_index > -1 and match[best_match_index]:
                 name = class_names[best_match_index].upper()  
                 name = str(name).split("-")[0]     
@@ -89,6 +91,8 @@ def face_rec_(frame, encode_list_known, class_names):
                 cv2.rectangle(frame, (x1, y2 - 20), (x2, y2), (0, 255, 0), cv2.FILLED)
                 
             else:
+                # namaFileFoto = cfun.uniquify(path+"/"+name+".jpg")
+                # cv2.imwrite(namaFileFoto, lastFrame)                
                 cv2.rectangle(frame, (x1, y1), (x2, y2), (255, 0, 0), 2)
                 cv2.rectangle(frame, (x1, y2 - 20), (x2, y2), (255, 0, 0), cv2.FILLED)
                 
